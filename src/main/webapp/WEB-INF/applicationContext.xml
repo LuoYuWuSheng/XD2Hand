@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <!-- sql 异常转换 将传统的sql异常转换为-->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    <!-- 数据库连接参数配置文件的位置 resources MySql.properties -->
+    <!--<context:property-placeholder location="classpath:MySql.properties" ignore-unresolvable="true" />-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:MySql.properties</value>
+                <value>classpath*:ProjectConfig.properties</value>
+                <value>classpath*:RedisConfig.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!-- ====================================Spring 缓存 =========================== -->
+    <!-- 启用Spring的缓存 （这里是注解驱动） -->
+    <!--<cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>-->
+    <cache:annotation-driven/>
+    <!-- 声明缓存管理器 -->
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <constructor-arg ref="redisTemplate"/>
+    </bean>
+    <!-- ====================================Spring 缓存 END========================= -->
+
+    <!--=========================================数据库相关=======================================-->
+    <!-- Mybatis 与Spring整合的bean 可以直接使用数据源 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:Mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath*:/site/luoyu/dao/mapper/sqlMapper/*.xml"/>
+    </bean>
+    <!-- Mapper Interface 被Spring代理 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="site.luoyu.dao.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+    <!-- c3p0 数据源 支持数据缓存 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${mysql.driverClass}"/>
+        <property name="jdbcUrl" value="${mysql.jdbcUrl}"/>
+        <property name="user" value="${mysql.user}"/>
+        <property name="password" value="${mysql.password}"/>
+        <property name="initialPoolSize" value="${mysql.initialPoolSize}"/>
+        <property name="minPoolSize" value="${mysql.minPoolSize}"/>
+        <property name="maxPoolSize" value="${mysql.maxPoolSize}"/>
+        <property name="maxIdleTime" value="${mysql.maxIdleTime}"/>
+        <property name="acquireIncrement" value="${mysql.acquireIncrement}"/>
+        <property name="maxStatements" value="${mysql.maxStatements}"/>
+    </bean>
+    <!--=========================================数据库相关==============================================-->
+
+    <!--========================================事务相关=================================================-->
+    <!-- 使用cglib进行动态代理 hibernate 利用cglib进行动态代理的生成。延缓数据访问 -->
+    <!-- 开启Aspectj代理 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 支持注解方式声明式事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    <!-- 事务 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 事务切面配置 -->
+    <aop:config>
+        <aop:pointcut id="allServiceMethod" expression="execution(* site.luoyu.service.*.*(..))"/>
+        <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
+    </aop:config>
+    <!--========================================事务End============================================-->
+
+    <!-- =====================================Redis=============================================== -->
+    <!-- Redis factory -->
+    <bean id="jedisCacheConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="usePool" value="true"/>
+        <property name="hostName" value="${redis.hostName}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.passwd}"/>
+        <property name="database" value="${redis.database}"/>
+    </bean>
+    <!-- redis template definition -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisCacheConnFactory"/>
+    </bean>
+    <!-- =====================================RedisEnd============================================ -->
+
+</beans>

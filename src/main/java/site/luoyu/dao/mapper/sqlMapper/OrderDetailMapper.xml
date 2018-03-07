@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.luoyu.dao.mapper.OrderDetailMapper">
+    <resultMap id="BaseResultMap" type="site.luoyu.dao.entity.OrderDetail">
+        <id column="OrderDetailID" jdbcType="VARCHAR" property="orderdetailid"/>
+        <result column="OrderID" jdbcType="VARCHAR" property="orderid"/>
+        <result column="Book_ID" jdbcType="INTEGER" property="bookId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        OrderDetailID, OrderID, Book_ID
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_detail
+        where OrderDetailID = #{orderdetailid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from order_detail
+        where OrderDetailID = #{orderdetailid,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="site.luoyu.dao.entity.OrderDetail">
+        insert into order_detail (OrderDetailID, OrderID, Book_ID
+        )
+        values (#{orderdetailid,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{bookId,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="site.luoyu.dao.entity.OrderDetail">
+        insert into order_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderdetailid != null">
+                OrderDetailID,
+            </if>
+            <if test="orderid != null">
+                OrderID,
+            </if>
+            <if test="bookId != null">
+                Book_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderdetailid != null">
+                #{orderdetailid,jdbcType=VARCHAR},
+            </if>
+            <if test="orderid != null">
+                #{orderid,jdbcType=VARCHAR},
+            </if>
+            <if test="bookId != null">
+                #{bookId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="site.luoyu.dao.entity.OrderDetail">
+        update order_detail
+        <set>
+            <if test="orderid != null">
+                OrderID = #{orderid,jdbcType=VARCHAR},
+            </if>
+            <if test="bookId != null">
+                Book_ID = #{bookId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where OrderDetailID = #{orderdetailid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="site.luoyu.dao.entity.OrderDetail">
+        update order_detail
+        set OrderID = #{orderid,jdbcType=VARCHAR},
+        Book_ID = #{bookId,jdbcType=INTEGER}
+        where OrderDetailID = #{orderdetailid,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="site.luoyu.exampleForLearn"/>
+
+    <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:MySql.properties</value>
+                <value>classpath*:ProjectConfig.properties</value>
+                <value>classpath*:RedisConfig.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!-- =====================================Redis=============================================== -->
+    <!-- Redis factory -->
+    <bean id="jedisCacheConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="usePool" value="true"/>
+        <property name="hostName" value="${redis.hostName}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.passwd}"/>
+        <property name="database" value="${redis.database}"/>
+    </bean>
+    <!-- redis template definition -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisCacheConnFactory"/>
+    </bean>
+    <!-- =====================================RedisEnd============================================ -->
+    <bean id="testBean" class="site.luoyu.exampleForLearn.testBean">
+        <property name="name" value="I am zhangyang"/>
+    </bean>
+</beans>

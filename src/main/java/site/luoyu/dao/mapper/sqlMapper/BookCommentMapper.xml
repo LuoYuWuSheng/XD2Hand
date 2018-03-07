@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.luoyu.dao.mapper.BookCommentMapper">
+    <resultMap id="BaseResultMap" type="site.luoyu.dao.entity.BookComment">
+        <id column="C_id" jdbcType="INTEGER" property="cId"/>
+        <result column="Stu_id" jdbcType="INTEGER" property="stuId"/>
+        <result column="isbn" jdbcType="BIGINT" property="isbn"/>
+        <result column="Commentdate" jdbcType="TIMESTAMP" property="commentdate"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.luoyu.dao.entity.BookComment">
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        C_id, Stu_id, isbn, Commentdate
+    </sql>
+    <sql id="Blob_Column_List">
+        content
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from book_comment
+        where C_id = #{cId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from book_comment
+        where C_id = #{cId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="site.luoyu.dao.entity.BookComment">
+        insert into book_comment (C_id, Stu_id, isbn,
+        Commentdate, content)
+        values (#{cId,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER}, #{isbn,jdbcType=BIGINT},
+        #{commentdate,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="site.luoyu.dao.entity.BookComment">
+        insert into book_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cId != null">
+                C_id,
+            </if>
+            <if test="stuId != null">
+                Stu_id,
+            </if>
+            <if test="isbn != null">
+                isbn,
+            </if>
+            <if test="commentdate != null">
+                Commentdate,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cId != null">
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="stuId != null">
+                #{stuId,jdbcType=INTEGER},
+            </if>
+            <if test="isbn != null">
+                #{isbn,jdbcType=BIGINT},
+            </if>
+            <if test="commentdate != null">
+                #{commentdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="site.luoyu.dao.entity.BookComment">
+        update book_comment
+        <set>
+            <if test="stuId != null">
+                Stu_id = #{stuId,jdbcType=INTEGER},
+            </if>
+            <if test="isbn != null">
+        isbn = #{isbn,jdbcType=BIGINT},
+            </if>
+            <if test="commentdate != null">
+        Commentdate = #{commentdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where C_id = #{cId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.luoyu.dao.entity.BookComment">
+        update book_comment
+        set Stu_id = #{stuId,jdbcType=INTEGER},
+        isbn = #{isbn,jdbcType=BIGINT},
+        Commentdate = #{commentdate,jdbcType=TIMESTAMP},
+        content = #{content,jdbcType=LONGVARCHAR}
+        where C_id = #{cId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="site.luoyu.dao.entity.BookComment">
+        update book_comment
+        set Stu_id = #{stuId,jdbcType=INTEGER},
+        isbn = #{isbn,jdbcType=BIGINT},
+        Commentdate = #{commentdate,jdbcType=TIMESTAMP}
+        where C_id = #{cId,jdbcType=INTEGER}
+    </update>
+</mapper>

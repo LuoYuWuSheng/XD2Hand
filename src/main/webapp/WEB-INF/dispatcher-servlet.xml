@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Convenient way to map URLs to JSPs w/o having a Controller -->
+    <!--<mvc:view-controller path="/admin/activeUsers" view-name="admin/activeUsers"/>-->
+    <!--<mvc:view-controller path="/home" view-name="home"/>-->
+
+    <!-- Spring 注解bean的位置 -->
+    <context:component-scan base-package="site.luoyu"/>
+
+    <!-- 默认的注解映射的支持 不加这个mvc resource注解会失败 -->
+    <!-- 在这个标签里可以设置处理注解所使用的Bean以及详细配置，比如@ResponseBody 中文编码-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/*;charset=utf-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/uploadImages/**" location="/uploadImages/"/>
+    <mvc:resources mapping="/js/**.js" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
+
+    <!-- 解析上传文件所需依赖 使用CommonMultipartResolver -->
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!--<property name="maxUploadSize" value="2097152"/>-->
+        <!--<property name="defaultEncoding" value="UTF-8"/>-->
+    <!--</bean>-->
+    <!-- Spring 在Servlet3.0条件下Part的方式处理文件  -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+    </bean>
+
+    <!-- View Resolver for JSPs -->
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="requestContextAttribute" value="rc"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/pages/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="5"/>
+    </bean>
+    <!-- view Resolver json -->
+    <bean id="jsonViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+        <property name="order" value="4"/>
+    </bean>
+
+    <!-- json Mapping bean -->
+    <bean id="modelJackson" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+
+    </bean>
+</beans>

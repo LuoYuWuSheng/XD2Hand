@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.luoyu.dao.mapper.UserStudentMapper">
+  <resultMap id="BaseResultMap" type="site.luoyu.dao.entity.UserStudent">
+    <id column="Stu_id" jdbcType="INTEGER" property="stuId"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+    <result column="phoneNumber" jdbcType="VARCHAR" property="phonenumber"/>
+    <result column="email" jdbcType="VARCHAR" property="email"/>
+    <result column="Community_id" jdbcType="INTEGER" property="communityId"/>
+    <result column="classes" jdbcType="INTEGER" property="classes"/>
+    <result column="portrait" jdbcType="VARCHAR" property="portrait"/>
+    <result column="passwd" jdbcType="VARCHAR" property="passwd"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    Stu_id, name, nickname, phoneNumber, email, Community_id, classes, portrait, passwd
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user_student
+    where Stu_id = #{stuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_student
+    where Stu_id = #{stuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="site.luoyu.dao.entity.UserStudent">
+    insert into user_student (Stu_id, name, nickname, 
+      phoneNumber, email, Community_id, 
+      classes, portrait, passwd
+      )
+    values (#{stuId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{phonenumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{communityId,jdbcType=INTEGER}, 
+      #{classes,jdbcType=INTEGER}, #{portrait,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="site.luoyu.dao.entity.UserStudent">
+    insert into user_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        Stu_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="phonenumber != null">
+        phoneNumber,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="communityId != null">
+        Community_id,
+      </if>
+      <if test="classes != null">
+        classes,
+      </if>
+      <if test="portrait != null">
+        portrait,
+      </if>
+      <if test="passwd != null">
+        passwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="communityId != null">
+        #{communityId,jdbcType=INTEGER},
+      </if>
+      <if test="classes != null">
+        #{classes,jdbcType=INTEGER},
+      </if>
+      <if test="portrait != null">
+        #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null">
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="site.luoyu.dao.entity.UserStudent">
+    update user_student
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="communityId != null">
+        Community_id = #{communityId,jdbcType=INTEGER},
+      </if>
+      <if test="classes != null">
+        classes = #{classes,jdbcType=INTEGER},
+      </if>
+      <if test="portrait != null">
+        portrait = #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null">
+        passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Stu_id = #{stuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="site.luoyu.dao.entity.UserStudent">
+    update user_student
+    set name = #{name,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      Community_id = #{communityId,jdbcType=INTEGER},
+      classes = #{classes,jdbcType=INTEGER},
+      portrait = #{portrait,jdbcType=VARCHAR},
+      passwd = #{passwd,jdbcType=VARCHAR}
+    where Stu_id = #{stuId,jdbcType=INTEGER}
+  </update>
+    <select id="userLogin" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+        FROM user_student WHERE name = #{name} And passwd = #{passwd}
+  </select>
+</mapper>
