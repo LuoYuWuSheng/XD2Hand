@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- jsp 存在一个解释的过程，只有meta设置utf8是不够的 不加上这句的话会出现乱码--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <body>
@@ -71,24 +72,29 @@
                 <%--<p>$65.8</p>--%>
             <%--</div>--%>
         <%--</div>--%>
-        <form action="/userAction/publishBook" method="post" enctype="multipart/form-data">
-            <div style="overflow: auto;margin-top: 20px;width: 10000px">
+        <form style="width: 100%" method="post" enctype="multipart/form-data">
+            <div style="overflow: auto;margin-top: 20px;width: 100%">
                 <div class="inputForm">
+                    <input hidden name="bookId" value="${book.bookId}"/>
                     <label>
                         标题
-                        <input class="form-control" name="name" type="text" placeholder="2-80个字符"/>
+                        <input class="form-control" name="title" type="text"
+							   placeholder="2-80个字符" value="${book.title}"/>
                     </label>
                     <label>
                         价格
-                        <input type="text" class="form-control" name="price" value="">
+                        <input type="text" class="form-control" name="price" value="${book.price}">
                     </label>
                     <label>
                         摘要
-                        <textarea class="form-control" name="subtitle" placeholder="2-140个字符"></textarea>
+                        <textarea class="form-control" name="subtitle" placeholder="2-140个字符">
+							${book.subtitle}</textarea>
                     </label>
 					<label>
 						详细信息
-						<textarea class="form-control" name="detail" placeholder="2-1000个字符"></textarea>
+						<textarea class="form-control" name="detail" placeholder="2-1000个字符">
+                            ${book.detail}
+						</textarea>
 					</label>
                 </div>
                 <div class="categories inputForm">
@@ -101,7 +107,7 @@
                     </label>
                     <label>
                         图片地址
-                        <input type="radio" name="imgType" value="url" onselect="displayFile(false)">
+                        <input type="radio" name="imgType" value="${book.pictures}" onselect="displayFile(false)">
                     </label>
                     <div style="display: block">
                         <input id="file" name="bookCover" type="file" value="上传图片">
@@ -110,7 +116,14 @@
                 </div>
             </div>
             <div class="buttons">
-                <button type="submit" class="btn">发布</button>
+                <c:if test="${book != null}">
+                    <button type="submit" onclick="this.form.action='/Books/saveEdit';"
+                            class="btn">保存</button>
+                </c:if>
+                <c:if test="${book == null}">
+                    <button type="submit" onclick="this.form.action='/userAction/publishBook';"
+                            class="btn">发布</button>
+                </c:if>
                 <button href="/userAction/MainPage" class="btn">首页</button>
             </div>
         </form>

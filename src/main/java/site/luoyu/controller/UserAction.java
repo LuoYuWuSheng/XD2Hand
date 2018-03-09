@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.luoyu.dao.entity.Books;
-import site.luoyu.model.Book;
+import site.luoyu.model.BookModel;
 import site.luoyu.model.UserModel;
 import site.luoyu.service.BooksService;
 import javax.servlet.http.HttpServletRequest;
@@ -40,9 +40,8 @@ public class UserAction {
      */
     @RequestMapping("/publishBookPage")
     public String getPublishBookPage(Model model){
-
-        Book book = new Book();
-        model.addAttribute("book",book);
+        BookModel bookModel = new BookModel();
+//        model.addAttribute("book", bookModel);
         return "TileUploadBooks";
     }
 

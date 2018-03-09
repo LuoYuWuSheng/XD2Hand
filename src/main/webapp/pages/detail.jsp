@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <body>
 <div id="wrapper">
@@ -39,13 +40,24 @@
       <div id="one_book">
         <img id="detailImage" src="${book.pictures}" alt="" />
         <section class="detail_message">
-          <h3>${book.title}</h3>
-          <p><i>发布日期:${book.publishDates}</i></p>
-          <p style="font-size:22px;color:#EF4E22"><strong>价格: &yen; ${book.price}</strong><span class="stars"></span></p>
-          <hr/>
-          <ul class="detail_ul">
+            <h3>${book.title}</h3>
+            <p><i>发布日期:${book.formatDate()}</i></p>
+            <p style="font-size:22px;color:#EF4E22"><strong>价格: &yen; ${book.price}</strong><span class="stars"></span></p>
+            <hr/>
+            <ul class="detail_ul">
             <li><span class="dleft">摘要:</span><span class="dright">${book.subtitle}</span></li>
-          </ul>
+            </ul>
+            <%--<form:input path="${Orders.num}"></form:input>--%>
+            <c:if test="${user != null}" >
+                <div class="buttons" style="margin-top: 200px">
+                    <c:if test="${user.getType()}">
+                        <button onclick="location='/Books/edit/8'" style="margin-left: 10px;" class="btn">编辑</button>
+                    </c:if>
+                    <c:if test="${!user.getType()}">
+                        <button type="submit" class="btn">加入购物车</button>
+                    </c:if>
+                </div>
+            </c:if>
         </section>
       </div>
 

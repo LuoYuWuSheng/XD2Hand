@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.luoyu.dao.entity.Books;
 import site.luoyu.dao.mapper.BooksMapper;
-import site.luoyu.model.Book;
 import site.luoyu.model.UserModel;
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +53,7 @@ public class BooksService {
         aBook.setPublishDate(new Date(System.currentTimeMillis()));
         // id 自增
 //        book.setBookId(UUID.randomUUID().);
-        aBook.setTitle(((String[]) bookParameter.get("name"))[0]);
+        aBook.setTitle(((String[]) bookParameter.get("title"))[0]);
         aBook.setPrice(Float.parseFloat(((String[]) bookParameter.get("price"))[0]));
         aBook.setSubtitle(((String[]) bookParameter.get("subtitle"))[0]);
         aBook.setDetail(((String[]) bookParameter.get("detail"))[0]);
