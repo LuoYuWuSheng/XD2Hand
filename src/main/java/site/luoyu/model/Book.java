@@ -15,7 +15,6 @@ public class Book {
     private long isbn_id;
     private String pictures;
     private Integer level;
-    //todo 推荐等级，这个可以让服务器在每晚12点求得最新值
     private Integer recommendStar;
     private Date publishDate;
     private Integer bookTypeId;
@@ -32,16 +31,10 @@ public class Book {
     //从entity直接构造
     public Book(Books book){
         this.bookId = book.getBookId();
-        this.stuId = book.getStuId();
-        this.isbn_id = book.getIsbn();
+        this.stuId = book.getUserId();
         this.pictures = book.getPictures();
-        this.level = book.getLevel();
-        this.recommendStar = book.getRecommendstar();
         this.publishDate = book.getPublishDate();
-        this.bookTypeId = book.getBooktypeid();
-        this.typeCodeClass = book.getTypecodeClass();
         this.price = book.getPrice();
-        this.name = book.getName();
     }
 
 

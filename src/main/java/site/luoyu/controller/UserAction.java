@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.luoyu.dao.entity.Books;
 import site.luoyu.model.Book;
-import site.luoyu.model.User;
+import site.luoyu.model.UserModel;
 import site.luoyu.service.BooksService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -61,13 +61,13 @@ public class UserAction {
         List<String> path = null;
 
         log.info("用户 发布图书销售信息 ");
-        User user = (User) session.getAttribute("user");
-        if(user == null)return "redirect:/userManage/loginPage";
+        UserModel userModel = (UserModel) session.getAttribute("user");
+        if(userModel == null)return "redirect:/userManage/loginPage";
         else {
             //上传图片封面，并将路径信息保存到数据库
-            path = booksService.uploadCover(multipartHttpServletRequest, user, fileMap);
+            path = booksService.uploadCover(multipartHttpServletRequest, userModel, fileMap);
         }
-        booksService.publishBook(BookParameter,path,user);
+        booksService.publishBook(BookParameter,path, userModel);
         return "redirect:/userAction/MainPage";
     }
 

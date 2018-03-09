@@ -2,9 +2,10 @@ package site.luoyu.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import site.luoyu.dao.entity.UserStudent;
-import site.luoyu.dao.mapper.UserStudentMapper;
-import site.luoyu.model.User;
+import site.luoyu.dao.entity.User;
+import site.luoyu.dao.mapper.UserMapper;
+import site.luoyu.model.UserModel;
+
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -19,53 +20,53 @@ import java.io.UnsupportedEncodingException;
 public class UserService {
 
     @Autowired
-    private UserStudentMapper userStudentRepository;
+    private UserMapper userMapper;
 
     /**
      * 用户登录
-     * @param user
+     * @param userModel
      *      传入想要登录操作的用户
      */
     //todo 登录操作通过名称来标识，没有处理重名的问题
-    public User login(User user){
-        UserStudent loginResult = userStudentRepository.userLogin(user.getName(), user.getPasswd());
-        User result = null;
-        if (loginResult != null) result = new User(loginResult);
+    public UserModel login(UserModel userModel){
+        User loginUserModel = userMapper.login(userModel.getName(), userModel.getPasswd());
+        UserModel result = null;
+        if (loginUserModel != null) result = new UserModel(loginUserModel);
         return result;
     }
 
     /**
      * 用户注册服务
-     * @param user
+     * @param userModel
      *      学生
      * @return 是否成功
      */
     //todo bug 保存的时候竟然只保存一个
-    public boolean register(User user) {
-        UserStudent userStudent = new UserStudent();
+    public boolean register(UserModel userModel) {
+        User user = new User();
         String encode = null;
         try {
-            encode = new String(user.getName().getBytes("iso8859-1"),"UTF8");
+            encode = new String(userModel.getName().getBytes("iso8859-1"),"UTF8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        userStudent.setName(encode);
-        userStudent.setPasswd(user.getPasswd());
-        userStudentRepository.insert(userStudent);
+        user.setName(encode);
+        user.setPasswd(userModel.getPasswd());
+        userMapper.insert(user);
         return true;
     }
 
     /**
      * 用户信息保存接口，用户保存信息，更改信息都通过这里来保存。
-     * @param user
+     * @param userModel
      *      学生
      * 注册服务
      */
-    public void updateInfo(User user){
-        UserStudent userStudent = userStudentRepository.selectByPrimaryKey(user.getStuId());
-        userStudent.setName(user.getName());
-    	userStudent.setPasswd(user.getPasswd());
-        userStudentRepository.updateByPrimaryKey(userStudent);
+    public void updateInfo(UserModel userModel){
+        User user = userMapper.selectByPrimaryKey(userModel.getStuId());
+        user.setName(userModel.getName());
+    	user.setPasswd(userModel.getPasswd());
+        userMapper.updateByPrimaryKey(user);
 
     }
 }

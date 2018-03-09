@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import site.luoyu.dao.entity.Books;
 import site.luoyu.dao.mapper.BooksMapper;
-import site.luoyu.model.User;
+import site.luoyu.model.UserModel;
 
 import java.sql.Date;
 import java.util.Iterator;
@@ -24,27 +24,24 @@ public class JPAtest extends SpringContext {
     private BooksMapper booksRepository;
 
     @Autowired
-    User user;
+    UserModel userModel;
 
     @Test
     @Transactional
     public void testBooks(){
-        user.setName("rightConfig");
-        log.info(user.getName());
+        userModel.setName("rightConfig");
+        log.info(userModel.getName());
         Books aBook = new Books();
-        aBook.setLevel(10);
-        aBook.setName("C++ Primier");
+        aBook.setTitle("C++ Primier");
         Date date = new Date(System.currentTimeMillis());
         log.info(date);
         aBook.setPublishDate(date);
-        aBook.setRecommendstar(5);
-        aBook.setTypecodeClass("031114班");
         booksRepository.insert(aBook);
-        Iterable<Books> BookList = booksRepository.findAll();
+        Iterable<Books> BookList = booksRepository.getBooks();
         Iterator<Books> iterator = BookList.iterator();
         while (iterator.hasNext()){
             Books doneBook = iterator.next();
-            log.info("已发布图书名称："+doneBook.getName());
+            log.info("已发布图书名称："+doneBook.getTitle());
         }
     }
 }

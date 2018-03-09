@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import site.luoyu.model.BoolResult;
-import site.luoyu.model.User;
+import site.luoyu.model.UserModel;
 import site.luoyu.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +36,8 @@ public class UserManager {
      */
     @RequestMapping("/loginPage")
     public String getLoginPage(Model model){
-        User user = new User();
-        model.addAttribute("user",user);
+        UserModel userModel = new UserModel();
+        model.addAttribute("user", userModel);
         return "login";
     }
 
@@ -47,36 +47,36 @@ public class UserManager {
     @RequestMapping("/registerPage")
     public String getRegisterPage(Model model){
         log.info("进入注册页面");
-        User userRegister = new User();
-        model.addAttribute("user",userRegister);
+        UserModel userModelRegister = new UserModel();
+        model.addAttribute("user", userModelRegister);
         return "/register";
     }
 
     /**
      * 用户填好信息后将信息回传保存
-     * @param user
+     * @param userModel
      *      用户的信息
      * @return
      *      返回注册成功的页面
      */
     //todo 注册乱码问题
     @RequestMapping("/register")
-    public String register(@Valid User user, Model model){
+    public String register(@Valid UserModel userModel, Model model){
         log.info("确认注册");
-        model.addAttribute("user",user);
-        if(userService.register(user))return "redirect:/userAction/MainPage";
+        model.addAttribute("user", userModel);
+        if(userService.register(userModel))return "redirect:/userAction/MainPage";
         else return "register";
     }
 
     //临时调试
     @RequestMapping("/userNameExist")
     public String registerTemp(HttpServletRequest request,Model model){
-        User user = new User();
-        user.setName(request.getParameter("username"));
-        User registerUser = userService.login(user);
+        UserModel userModel = new UserModel();
+        userModel.setName(request.getParameter("username"));
+        UserModel registerUserModel = userService.login(userModel);
         BoolResult result = new BoolResult();
         result.setResult(false);
-        if (registerUser != null){
+        if (registerUserModel != null){
             result.setResult(true);
         }
         log.info("用户判断注册名称是否存在");
@@ -88,17 +88,17 @@ public class UserManager {
     //临时调试
     @RequestMapping("/registerTemp")
     public String registerTempDo(HttpServletRequest request,Model model){
-        User user = new User();
-        user.setName(request.getParameter("username"));
-        user.setPasswd(request.getParameter("userpwd"));
-        user.setPhoneNumber(request.getParameter("usertel"));
-        user.setEmail(request.getParameter("useremail"));
+        UserModel userModel = new UserModel();
+        userModel.setName(request.getParameter("username"));
+        userModel.setPasswd(request.getParameter("userpwd"));
+        userModel.setPhoneNumber(request.getParameter("usertel"));
+        userModel.setEmail(request.getParameter("useremail"));
 //        User registerUser = userService.login(user);
         BoolResult result = new BoolResult();
         result.setResult(false);
         log.info("确认注册");
-        model.addAttribute("user",user);
-        if(userService.register(user))result.setResult(true);
+        model.addAttribute("user", userModel);
+        if(userService.register(userModel))result.setResult(true);
 //        else result.setResult(false);
         return "modelJackson";
     }
@@ -107,13 +107,13 @@ public class UserManager {
      * 登陆
      */
     @RequestMapping("/login")
-    public String login(@Validated User user,Model model,HttpSession session){
+    public String login(@Validated UserModel userModel, Model model, HttpSession session){
         log.info("用户登陆");
-        User loginUser = userService.login(user);
-        if(loginUser != null){
-            model.addAttribute("user",loginUser);
+        UserModel loginUserModel = userService.login(userModel);
+        if(loginUserModel != null){
+            model.addAttribute("user", loginUserModel);
             //将user注入session 保持持久登陆
-            session.setAttribute("user",loginUser);
+            session.setAttribute("user", loginUserModel);
             return "redirect:/userAction/MainPage";
         }else {
             model.addAttribute("message","登录失败！用户名或密码错误");
@@ -131,17 +131,17 @@ public class UserManager {
     @RequestMapping("/loginTemp")
     public String loginTmp(HttpServletRequest request, Model model, HttpSession session){
         log.info("用户登陆");
-        User user = new User();
-        user.setName(request.getParameter("username"));
-        user.setPasswd(request.getParameter("userpwd"));
-        User loginUser = userService.login(user);
+        UserModel userModel = new UserModel();
+        userModel.setName(request.getParameter("username"));
+        userModel.setPasswd(request.getParameter("userpwd"));
+        UserModel loginUserModel = userService.login(userModel);
 
         BoolResult login = new BoolResult();
         login.setResult(false);
 
-        if(loginUser != null){
+        if(loginUserModel != null){
             //将user注入session 保持持久登陆
-            session.setAttribute("user",loginUser);
+            session.setAttribute("user", loginUserModel);
 //            return "modelJackson";
             login.setResult(true);
         }
@@ -160,17 +160,17 @@ public class UserManager {
     @RequestMapping("/editInfoPage")
     public String profilePage(Model model, HttpSession session) {
         log.info("用户编辑个人信息 ");
-        User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+        UserModel userModel = (UserModel) session.getAttribute("user");
+        model.addAttribute("user", userModel);
         return "profile";
     }
     /**
      * 编辑个人信息
      */
     @RequestMapping("/editInfo")
-    public String editInfo(@Validated User user){
+    public String editInfo(@Validated UserModel userModel){
         log.info("编辑个人信息");
-        userService.updateInfo(user);
+        userService.updateInfo(userModel);
         return "redirect:/userAction/MainPage";
     }
 }

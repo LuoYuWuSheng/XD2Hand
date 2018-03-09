@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.luoyu.dao.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="site.luoyu.dao.entity.User">
+    <id column="User_id" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="BIT" property="type" />
+    <result column="passwd" jdbcType="VARCHAR" property="passwd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    User_id, name, type, passwd
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from User
+    where User_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="login" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM User WHERE name = #{name,jdbcType=VARCHAR}
+    AND  passwd = #{passwd,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from User
+    where User_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="site.luoyu.dao.entity.User">
+    insert into User (User_id, name, type, 
+      passwd)
+    values (#{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, 
+      #{passwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="site.luoyu.dao.entity.User">
+    insert into User
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        User_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="passwd != null">
+        passwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="passwd != null">
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="site.luoyu.dao.entity.User">
+    update User
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="passwd != null">
+        passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where User_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="site.luoyu.dao.entity.User">
+    update User
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=BIT},
+      passwd = #{passwd,jdbcType=VARCHAR}
+    where User_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

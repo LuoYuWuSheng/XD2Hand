@@ -10,7 +10,7 @@ import site.luoyu.exampleForLearn.aspect.singer;
  * Created by 张洋 on 2018/3/7.
  */
 @Configuration
-@ImportResource("/testContext.xml")
+@ImportResource("classpath*:/testContext.xml")
 public class testConfig {
     @Bean
     public singer getSinger() {

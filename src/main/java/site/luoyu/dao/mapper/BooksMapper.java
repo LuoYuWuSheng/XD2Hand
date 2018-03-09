@@ -17,7 +17,5 @@ public interface BooksMapper {
 
     int updateByPrimaryKey(Books record);
 
-    List<Books> getBookByPage();
-
-    List<Books> findAll();
+    List<Books> getBooks();
 }

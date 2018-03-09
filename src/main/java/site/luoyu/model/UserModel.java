@@ -2,7 +2,7 @@ package site.luoyu.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
-import site.luoyu.dao.entity.UserStudent;
+import site.luoyu.dao.entity.User;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
  * Created by luoyu on 2018/3/7.
  */
 @Component
-public class User {
+public class UserModel {
 
     private int stuId;
 //  Spring 校验这里的信息是写死的，其实可以利用资源文件实现Spring对多语言的支持，没有做继续尝试
@@ -31,7 +31,7 @@ public class User {
     private String passwd;
 
     //无参构造函数
-    public User() {
+    public UserModel() {
     }
 
     /**
@@ -39,14 +39,9 @@ public class User {
      * @param stu
      *      传过来的stu实体
      */
-    public User(UserStudent stu) {
-        this.stuId = stu.getStuId();
+    public UserModel(User stu) {
+        this.stuId = stu.getUserId();
         this.name = stu.getName();
-        this.nickname = stu.getNickname();
-        this.phoneNumber = stu.getPhonenumber();
-        this.email = stu.getEmail();
-        this.classes_id = stu.getClasses();
-        this.portrait = stu.getPortrait();
         this.passwd = stu.getPasswd();
     }
 

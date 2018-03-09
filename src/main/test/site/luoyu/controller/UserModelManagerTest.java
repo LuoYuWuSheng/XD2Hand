@@ -11,7 +11,7 @@ import org.junit.After;
 * @since <pre>3/7/2018</pre>
 * @version 1.0 
 */ 
-public class UserManagerTest { 
+public class UserModelManagerTest {
 
 @Before
 public void before() throws Exception { 

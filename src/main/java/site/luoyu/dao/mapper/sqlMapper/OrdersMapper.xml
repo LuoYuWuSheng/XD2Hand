@@ -1,82 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.luoyu.dao.mapper.OrdersMapper">
-    <resultMap id="BaseResultMap" type="site.luoyu.dao.entity.Orders">
-        <id column="OrderID" jdbcType="VARCHAR" property="orderid"/>
-        <result column="Stu_id" jdbcType="INTEGER" property="stuId"/>
-        <result column="totalMoney" jdbcType="REAL" property="totalmoney"/>
-        <result column="orderDate" jdbcType="TIMESTAMP" property="orderdate"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-        OrderID, Stu_id, totalMoney, orderDate
-    </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from orders
-        where OrderID = #{orderid,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from orders
-        where OrderID = #{orderid,jdbcType=VARCHAR}
-    </delete>
-    <insert id="insert" parameterType="site.luoyu.dao.entity.Orders">
-        insert into orders (OrderID, Stu_id, totalMoney,
-        orderDate)
-        values (#{orderid,jdbcType=VARCHAR}, #{stuId,jdbcType=INTEGER}, #{totalmoney,jdbcType=REAL},
-        #{orderdate,jdbcType=TIMESTAMP})
-    </insert>
-    <insert id="insertSelective" parameterType="site.luoyu.dao.entity.Orders">
-        insert into orders
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="orderid != null">
-                OrderID,
-            </if>
-            <if test="stuId != null">
-                Stu_id,
-            </if>
-            <if test="totalmoney != null">
-                totalMoney,
-            </if>
-            <if test="orderdate != null">
-                orderDate,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="orderid != null">
-                #{orderid,jdbcType=VARCHAR},
-            </if>
-            <if test="stuId != null">
-                #{stuId,jdbcType=INTEGER},
-            </if>
-            <if test="totalmoney != null">
-                #{totalmoney,jdbcType=REAL},
-            </if>
-            <if test="orderdate != null">
-                #{orderdate,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="site.luoyu.dao.entity.Orders">
-        update orders
-        <set>
-            <if test="stuId != null">
-                Stu_id = #{stuId,jdbcType=INTEGER},
-            </if>
-            <if test="totalmoney != null">
-        totalMoney = #{totalmoney,jdbcType=REAL},
-            </if>
-            <if test="orderdate != null">
-                orderDate = #{orderdate,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where OrderID = #{orderid,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="site.luoyu.dao.entity.Orders">
-        update orders
-        set Stu_id = #{stuId,jdbcType=INTEGER},
-        totalMoney = #{totalmoney,jdbcType=REAL},
-        orderDate = #{orderdate,jdbcType=TIMESTAMP}
-        where OrderID = #{orderid,jdbcType=VARCHAR}
-    </update>
+  <resultMap id="BaseResultMap" type="site.luoyu.dao.entity.Orders">
+    <id column="OrderID" jdbcType="VARCHAR" property="orderid" />
+    <result column="Seller_id" jdbcType="INTEGER" property="sellerId" />
+    <result column="Buyer_id" jdbcType="INTEGER" property="buyerId" />
+    <result column="Book_ID" jdbcType="INTEGER" property="bookId" />
+    <result column="Book_Num" jdbcType="INTEGER" property="bookNum" />
+    <result column="orderDate" jdbcType="TIMESTAMP" property="orderdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    OrderID, Seller_id, Buyer_id, Book_ID, Book_Num, orderDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Orders
+    where OrderID = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from Orders
+    where OrderID = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="site.luoyu.dao.entity.Orders">
+    insert into Orders (OrderID, Seller_id, Buyer_id, 
+      Book_ID, Book_Num, orderDate
+      )
+    values (#{orderid,jdbcType=VARCHAR}, #{sellerId,jdbcType=INTEGER}, #{buyerId,jdbcType=INTEGER}, 
+      #{bookId,jdbcType=INTEGER}, #{bookNum,jdbcType=INTEGER}, #{orderdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="site.luoyu.dao.entity.Orders">
+    insert into Orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        OrderID,
+      </if>
+      <if test="sellerId != null">
+        Seller_id,
+      </if>
+      <if test="buyerId != null">
+        Buyer_id,
+      </if>
+      <if test="bookId != null">
+        Book_ID,
+      </if>
+      <if test="bookNum != null">
+        Book_Num,
+      </if>
+      <if test="orderdate != null">
+        orderDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerId != null">
+        #{sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerId != null">
+        #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null">
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="bookNum != null">
+        #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="orderdate != null">
+        #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="site.luoyu.dao.entity.Orders">
+    update Orders
+    <set>
+      <if test="sellerId != null">
+        Seller_id = #{sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerId != null">
+        Buyer_id = #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null">
+        Book_ID = #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="bookNum != null">
+        Book_Num = #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="orderdate != null">
+        orderDate = #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where OrderID = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="site.luoyu.dao.entity.Orders">
+    update Orders
+    set Seller_id = #{sellerId,jdbcType=INTEGER},
+      Buyer_id = #{buyerId,jdbcType=INTEGER},
+      Book_ID = #{bookId,jdbcType=INTEGER},
+      Book_Num = #{bookNum,jdbcType=INTEGER},
+      orderDate = #{orderdate,jdbcType=TIMESTAMP}
+    where OrderID = #{orderid,jdbcType=VARCHAR}
+  </update>
 </mapper>

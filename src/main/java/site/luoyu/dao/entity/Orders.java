@@ -5,9 +5,13 @@ import java.util.Date;
 public class Orders {
     private String orderid;
 
-    private Integer stuId;
+    private Integer sellerId;
 
-    private Float totalmoney;
+    private Integer buyerId;
+
+    private Integer bookId;
+
+    private Integer bookNum;
 
     private Date orderdate;
 
@@ -19,20 +23,36 @@ public class Orders {
         this.orderid = orderid == null ? null : orderid.trim();
     }
 
-    public Integer getStuId() {
-        return stuId;
+    public Integer getSellerId() {
+        return sellerId;
     }
 
-    public void setStuId(Integer stuId) {
-        this.stuId = stuId;
+    public void setSellerId(Integer sellerId) {
+        this.sellerId = sellerId;
     }
 
-    public Float getTotalmoney() {
-        return totalmoney;
+    public Integer getBuyerId() {
+        return buyerId;
     }
 
-    public void setTotalmoney(Float totalmoney) {
-        this.totalmoney = totalmoney;
+    public void setBuyerId(Integer buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
+
+    public Integer getBookNum() {
+        return bookNum;
+    }
+
+    public void setBookNum(Integer bookNum) {
+        this.bookNum = bookNum;
     }
 
     public Date getOrderdate() {

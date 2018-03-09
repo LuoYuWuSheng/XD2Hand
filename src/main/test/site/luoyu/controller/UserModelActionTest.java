@@ -13,7 +13,7 @@ import site.luoyu.SpringContext;
 * @version 1.0
  */
 //todo 测试用户发布图书，如何模拟Session中的User
-public class UserActionTest extends SpringContext{
+public class UserModelActionTest extends SpringContext{
 
     @Before
     public void before() throws Exception {

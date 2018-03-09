@@ -1,7 +1,7 @@
 package site.luoyu;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import site.luoyu.model.User;
+import site.luoyu.model.UserModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +20,8 @@ public class Jackson {
             File tempFile = new File(".");
             URL path = Jackson.class.getResource("/");
             System.out.println(path.getPath());
-            User user = mapper.readValue(new File(Jackson.class.getResource("/").getPath()+"/test.json"), User.class);
-            System.out.println(user.getName());
+            UserModel userModel = mapper.readValue(new File(Jackson.class.getResource("/").getPath()+"/test.json"), UserModel.class);
+            System.out.println(userModel.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }

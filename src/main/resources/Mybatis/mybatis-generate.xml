@@ -5,7 +5,7 @@
 <generatorConfiguration>
 
     <!-- !!!! Driver Class Path !!!! -->
-    <classPathEntry location="E:\Maven\Maven_repo\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar"/>
+    <classPathEntry location="/Users/luoyu/.m2/repository/mysql/mysql-connector-java/5.1.34/mysql-connector-java-5.1.34.jar"/>
 
     <context id="context" targetRuntime="MyBatis3">
         <commentGenerator>
@@ -24,42 +24,33 @@
 
         <!-- !!!! Model Configurations !!!! -->
         <javaModelGenerator targetPackage="site.luoyu.dao.entity"
-                            targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+                            targetProject=".">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- !!!! Mapper XML Configurations !!!! -->
         <sqlMapGenerator targetPackage="site.luoyu.dao.mapper.sqlMapper"
-                         targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+                         targetProject=".">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- !!!! Mapper Interface Configurations !!!! -->
         <javaClientGenerator targetPackage="site.luoyu.dao.mapper"
-                             targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED"
+                             targetProject="."
                              type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
-
         <!-- !!!! Table Configurations !!!! -->
-        <table tableName="book_comment" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="book_isbn" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="book_typeinfo" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="books" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="classes" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="community" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="order_detail" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="orders" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
-        <table tableName="user_student" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table schema="BookStore" tableName="User" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+        <table schema="BookStore" tableName="Books" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+        <table schema="BookStore" tableName="Orders" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
     </context>
 </generatorConfiguration>
