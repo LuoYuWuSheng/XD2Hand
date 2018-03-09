@@ -49,7 +49,6 @@ public class ForLearn {
         System.out.println(userModel.getName() + " " + userModel.getPasswd());
         String sessionString = (String) session.getAttribute("test");
         System.out.println(sessionString);
-//        todo Jquary当返回格式不是json就调用error
         return userModel;
     }
 

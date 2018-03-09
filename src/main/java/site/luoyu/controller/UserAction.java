@@ -43,14 +43,13 @@ public class UserAction {
 
         Book book = new Book();
         model.addAttribute("book",book);
-        return "uploadBooks";
+        return "TileUploadBooks";
     }
 
     /**
      * 发布用户图书
      * @throws IOException
      */
-    //todo 这里细作的话需要支持多本书同时发布，我现在只是发完一本后跳转到发布页面，这样不太好
     @RequestMapping(value = "/publishBook",method = RequestMethod.POST)
     public String publishBookSale(MultipartHttpServletRequest multipartHttpServletRequest, HttpSession session) throws IOException {
 
@@ -78,7 +77,6 @@ public class UserAction {
     @RequestMapping("/MainPage")
     public String browseMainPage(HttpServletRequest request,Model model) throws JSONException{
 
-        //todo 从前端获得排序策略，策略将来还有可能增加
 //        Pageable pageable = QueryTool.buildPageRequest(0, 12, "price");
         List<Books> pages = booksService.getBooksByPage();
         //jstl只支持基本类型的遍历，不支持iterator
@@ -89,7 +87,7 @@ public class UserAction {
         }
         model.addAttribute("pages",booksList);
         log.info("获得图书列表 针对用户的兴趣进行排序显示");
-        return "MainPage";
+        return "TileMainPage";
     }
 
     /**

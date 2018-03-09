@@ -38,7 +38,7 @@ public class UserManager {
     public String getLoginPage(Model model){
         UserModel userModel = new UserModel();
         model.addAttribute("user", userModel);
-        return "login";
+        return "TileLogin";
     }
 
     /**
@@ -59,13 +59,12 @@ public class UserManager {
      * @return
      *      返回注册成功的页面
      */
-    //todo 注册乱码问题
     @RequestMapping("/register")
     public String register(@Valid UserModel userModel, Model model){
         log.info("确认注册");
         model.addAttribute("user", userModel);
         if(userService.register(userModel))return "redirect:/userAction/MainPage";
-        else return "register";
+        else return "TileRegister";
     }
 
     //临时调试
@@ -91,8 +90,6 @@ public class UserManager {
         UserModel userModel = new UserModel();
         userModel.setName(request.getParameter("username"));
         userModel.setPasswd(request.getParameter("userpwd"));
-        userModel.setPhoneNumber(request.getParameter("usertel"));
-        userModel.setEmail(request.getParameter("useremail"));
 //        User registerUser = userService.login(user);
         BoolResult result = new BoolResult();
         result.setResult(false);
@@ -116,8 +113,9 @@ public class UserManager {
             session.setAttribute("user", loginUserModel);
             return "redirect:/userAction/MainPage";
         }else {
+            model.addAttribute("user", userModel);
             model.addAttribute("message","登录失败！用户名或密码错误");
-            return "login";
+            return "TileLogin";
         }
     }
 
@@ -162,7 +160,7 @@ public class UserManager {
         log.info("用户编辑个人信息 ");
         UserModel userModel = (UserModel) session.getAttribute("user");
         model.addAttribute("user", userModel);
-        return "profile";
+        return "TileProfile";
     }
     /**
      * 编辑个人信息

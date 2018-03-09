@@ -1,5 +1,6 @@
 package site.luoyu.dao.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import site.luoyu.dao.entity.User;
 
 import javax.jws.soap.SOAPBinding;
@@ -17,5 +18,5 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    User login(String name,String passwd);
+    User login(@Param("name") String name,@Param("passwd") String passwd);
 }

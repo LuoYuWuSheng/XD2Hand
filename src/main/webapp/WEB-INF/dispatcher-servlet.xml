@@ -37,16 +37,27 @@
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
     </bean>
+    <!-- View Resolver apache Tile -->
+    <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+        <property name="order" value="3"/>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/pages/**/views.xml</value>
+            </list>
+        </property>
+    </bean>
 
-    <!-- View Resolver for JSPs -->
+     <!--View Resolver for JSPs -->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="requestContextAttribute" value="rc"/>
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
         <property name="prefix" value="/pages/"/>
         <property name="suffix" value=".jsp"/>
         <property name="order" value="5"/>
     </bean>
-    <!-- view Resolver json -->
+     <!--view Resolver json-->
     <bean id="jsonViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
         <property name="order" value="4"/>
     </bean>

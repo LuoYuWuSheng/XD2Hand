@@ -5,7 +5,6 @@
 <head>
     <title>个人信息</title>
     <meta charset="utf-8">
-    <%--todo meta 是用来干啥的--%>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa+One">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">

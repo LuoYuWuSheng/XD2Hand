@@ -12,16 +12,7 @@
   <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="../css/myDefin/login.css">
   <script src="../js/jquery.min.js"></script>
-  <script>
-    function verify(){
-      var passwd = $('#user-password-label');
-      var passwdConfirm = $('#userPasswd');
-      if(passwd.val === passwdConfirm.val){
-        $('#register').submit();
-      }
-      else alert("your passwd is not confirm");
-    }
-  </script>
+
   <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0"> </head>-->
 
 <body>

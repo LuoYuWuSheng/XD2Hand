@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>XD2HandBookStore</title>
+    <title>MyBookStore</title>
     <link rel="stylesheet" href="../css/normalize.css">
     <link href="https://fonts.googleapis.com/css?family=Changa+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -39,22 +39,6 @@
     </style>
 </head>
 <body>
-<header>
-    <a href="/userManage/loginPage" id="logo">
-        <h1>2HandsBookShoop</h1>
-    </a>
-    <span class="search"><img src="/images/icons/query.png" alt=""/></span>
-    <%--<nav>--%>
-    <%--<ul>--%>
-    <%--<li><a href="#">HOME</a></li>--%>
-    <%--<li><a href="#">BLOG</a></li>--%>
-    <%--<li><a href="#">SHOP</a></li>--%>
-    <%--<li><a href="#">FAQ</a></li>--%>
-    <%--<li><a href="#">CONTACT</a></li>--%>
-    <%--<li><a href="/userAction/publishBookPage">UPLOADBOOK</a></li>--%>
-    <%--</ul>--%>
-    <%--</nav>--%>
-</header>
 <div id="main">
     <div class="left">
         <div class="selfMeaasge">
@@ -65,10 +49,10 @@
         <ul>
             <li><a href="#">Dashbord</a></li>
             <li><a href="#">Message</a></li>
-            <li><a href="#">Upload Books</a></li>
+            <li><a href="#">发布</a></li>
             <li><a href="#">Calandar</a></li>
         </ul>
-        <p class="footMessage" style="text-align: center">&copy; Copyright 2016 XD2HandBookStore by XDCrater </p>
+        <p class="footMessage" style="text-align: center">&copy; Copyright 2018 XD2BookStore by ZY </p>
     </div>
 
     <div class="right">
@@ -106,51 +90,42 @@
             <div style="overflow: auto;margin-top: 20px;width: 10000px">
                 <div class="inputForm">
                     <label>
-                        Student ID 这里需要系统生成而不该由用户填写
-                        <input class="form-control" name="stuId" type="text" value=""/>
+                        标题
+                        <input class="form-control" name="name" type="text" placeholder="2-80个字符"/>
                     </label>
                     <label>
-                        ISBN 这个应该是必填(necessary)
-                        <input class="form-control" name="isbn" type="text" placeholder="9787115145543"/>
-                    </label>
-                    <label>
-                        Title of Book
-                        <input class="form-control" name="name" type="text"/>
-                    </label>
-                    <label>
-                        Author 通过isbn查询
-                        <input class="form-control" name="author" type="text"/>
-                    </label>
-                    <label>
-                        Book Old Level 图书的新旧程度，0-9数字越大越新
-                        <input class="form-control" name="level" type=text/>
-                    </label>
-                    <label>
-                        <%-- todo:price 这里继续做的话可以给出价格建议 或者快速选项，例如这种isbn的书，新书是多少钱，旧书通常要多少钱--%>
-                        price
+                        价格
                         <input type="text" class="form-control" name="price" value="">
                     </label>
                     <label>
-                        Description 是否该写？
-                        <textarea class="form-control" name="description"></textarea>
+                        摘要
+                        <textarea class="form-control" name="subtitle" placeholder="2-140个字符"></textarea>
                     </label>
+					<label>
+						详细信息
+						<textarea class="form-control" name="detail" placeholder="2-1000个字符"></textarea>
+					</label>
                 </div>
                 <div class="categories inputForm">
-                    <label for="category">categories</label>
-                    <select id="category" class="form-control">
-                        <option value="11">CSS</option>
-                        <option value="12">Javascript</option>
-                        <option value="13">html</option>
-                        <option value="14">jquery</option>
-                    </select>
                     <img style="max-height: 200px" src="/images/books_images/9780081006603.jpg" alt="">
                     <%-- todo:只是临时的，需要用js实现 并且需要做文件的判断，不是图片文件不允许上传--%>
-                    <input name="bookCover" class="btn bookCover" type="file" value="上传图片">
+                    <label>
+                        文件上传
+                        <input type="radio" name="imgType" value="file">
+                    </label>
+                    <label>
+                        图片地址
+                        <input type="radio" name="imgType" value="url">
+                    </label>
+                    <div style="display: block">
+                        <input name="bookCover" type="file" value="上传图片">
+                        <input type="text" name="url" placeholder="请输入url">
+                    </div>
                 </div>
             </div>
             <div class="buttons">
-                <button type="submit" class="btn">Upload</button>
-                <button href="/userAction/MainPage" class="btn">home</button>
+                <button type="submit" class="btn">发布</button>
+                <button href="/userAction/MainPage" class="btn">首页</button>
             </div>
         </form>
     </div>

@@ -17,24 +17,24 @@
 <body>
   <div class="login">
 <div class="login-header">
-  <h1><em>Welcome to  </em>XD2HandBookStore</h1>
+  <h1><em>Welcome to  </em>MyBookStore</h1>
 </div>
 	  <div style="height: 200px">
     <div class="transport"></div>
     <img class="img" src="/images/photo-1424115087662-5845efc6b366.jpg?raw=true" alt="" />
     <form id="loginForm" action="/userManage/login" method="post">
         <div class="login-form">
-            <form:input path="user.name" id="user-name-label" name="userName" type="text" placeholder="Account Name" /><br>
-            <form:input  path="user.passwd" id="user-password-label" name="userPasswd" type="password" placeholder="Password" /><br>
-            <input type="text" placeholder="Verification Code" /><br>
-			<label class="label">
+            <form:input path="user.name" id="user-name-label" name="userName" type="text" placeholder="用户名" /><br>
+            <form:input  path="user.passwd" id="user-password-label" name="userPasswd" type="password" placeholder="密码" /><br>
+            <input type="text" placeholder="校验码" /><br>
+			<label class="label" style="left: auto">
                 <input type="checkbox" />
                 Remember Me</label><br><br>
-            <input type="button" onclick="$('#loginForm').submit()" value="Login" class="login-button" />
-            <input type="button" onclick="window.location.href='/userManage/registerPage'" value="Sign in" class="login-button" />
+            <input type="button" onclick="$('#loginForm').submit()" value="登陆" class="login-button" />
+            <input type="button" onclick="window.location.href='/userManage/registerPage'" value="注册" class="login-button" />
             <a>${message}</a>
             <br>
-            <h6 class="no-access">Can't access your account?</h6>
+            <h6 class="no-access">忘记账户了？我也没办法哈哈</h6>
         </div>
     </form>
 </div>

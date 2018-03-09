@@ -49,8 +49,6 @@ public class BooksService {
      *     发布图书人的信息
      */
     public void publishBook(Map bookParameter, List<String> path, UserModel userModel) {
-
-
         Books aBook = new Books();
         aBook.setUserId(userModel.getStuId());
         aBook.setPublishDate(new Date(System.currentTimeMillis()));
@@ -58,6 +56,8 @@ public class BooksService {
 //        book.setBookId(UUID.randomUUID().);
         aBook.setTitle(((String[]) bookParameter.get("name"))[0]);
         aBook.setPrice(Float.parseFloat(((String[]) bookParameter.get("price"))[0]));
+        aBook.setSubtitle(((String[]) bookParameter.get("subtitle"))[0]);
+        aBook.setDetail(((String[]) bookParameter.get("detail"))[0]);
         //存储图片
         aBook.setPictures(path.get(0));
         log.info("图书发布持久化 书名: " + aBook.getTitle());
@@ -69,11 +69,11 @@ public class BooksService {
      */
     public List<String> uploadCover(MultipartHttpServletRequest request, UserModel userModel, Map<String, MultipartFile> fileMap) throws IOException {
         List<String> imageURI = new ArrayList<>();
-          //todo 文件路径最好是可配置的，不然将来使用静态资源服务器去加速静态资源会有麻烦
-    	  String realPath = request.getSession().getServletContext().getRealPath("/")+"uploadImages"+"\\";
+          //todo windows linxu 路径表示不同，这里不同系统会与问题
+    	  String realPath = request.getSession().getServletContext().getRealPath("/")+"uploadImages"+"/";
           File file = new File(realPath);
           //将不同用户上传的图片放到不同的目录下，目录名为用户id
-          String userPath = realPath + userModel.getStuId()+"\\";
+          String userPath = realPath + userModel.getStuId()+"/";
           File userFile = new File(userPath);
           if(!file.exists()){
         	  file.mkdir();

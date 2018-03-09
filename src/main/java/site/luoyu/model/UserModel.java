@@ -21,14 +21,11 @@ public class UserModel {
     @NotNull(message = "用户名不能为空")
     @Size(min = 6, max = 10,message = "用户名最小不少于6个，最多不多于10个")
     private String name;
-    private String nickname;
-    private String phoneNumber;
-    private String email;
-    private int classes_id;
-    private String portrait;
     @NotNull(message = "密码不能为空")
     @JsonIgnoreProperties
     private String passwd;
+//    true for seller false for buyer
+    private Boolean type;
 
     //无参构造函数
     public UserModel() {
@@ -43,6 +40,7 @@ public class UserModel {
         this.stuId = stu.getUserId();
         this.name = stu.getName();
         this.passwd = stu.getPasswd();
+        this.type = stu.getType();
     }
 
     public String getName() {
@@ -51,46 +49,6 @@ public class UserModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getClasses() {
-        return classes_id;
-    }
-
-    public void setClasses(int classes) {
-        this.classes_id = classes;
-    }
-
-    public String getPortrait() {
-        return portrait;
-    }
-
-    public void setPortrait(String portrait) {
-        this.portrait = portrait;
     }
 
     public String getPasswd() {
@@ -107,5 +65,13 @@ public class UserModel {
 
     public void setStuId(int stuId) {
         this.stuId = stuId;
+    }
+
+    public Boolean getType() {
+        return type;
+    }
+
+    public void setType(Boolean type) {
+        this.type = type;
     }
 }
