@@ -57,15 +57,16 @@
             <ul id="gallery">
                 <c:forEach items="${pages}" var="book">
                     <li>
-                        <a href="/images/books_images/9780081006603.jpg">
+                        <a href="/Books/detail/${book.bookId}">
                             <img src="${book.pictures}" alt=""/>
                             <h4>
                                 <a href="/userAction/MainPage/${book.title}"></a>
                                     ${book.title}
                             </h4>
-                            <p>
-                                <em>简介: ${book.subtitle}</em>
-                            </p>
+                            <%--<p>--%>
+                                <%--<em>简介: ${book.subtitle}</em>--%>
+                            <%--</p>--%>
+                            <hr/>
                             <p style="color:red;">
                                 价格: &yen;${book.price}
                             </p>

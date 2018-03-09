@@ -22,4 +22,10 @@
     <definition name="TileProfile" extends="template">
         <put-attribute name="body" value="/pages/profile.jsp"/>
     </definition>
+    <definition name="TileShopCar" extends="template">
+        <put-attribute name="body" value="/pages/shopCar.jsp"/>
+    </definition>
+    <definition name="TileFinical" extends="template">
+        <put-attribute name="body" value="/pages/finical.jsp"/>
+    </definition>
 </tiles-definitions>

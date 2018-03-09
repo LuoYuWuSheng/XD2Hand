@@ -34,7 +34,7 @@
 </div>
 <nav>
 	<ul>
-		<li><a href="#">首页</a></li>
+		<li><a href="/userAction/MainPage">首页</a></li>
 		<li><a href="#">BLOG</a></li>
 		<li><a href="#">SHOP</a></li>
 		<li><a href="#">FAQ</a></li>

@@ -13,18 +13,13 @@
 	<link href="https://fonts.googleapis.com/css?family=Changa+One" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
 		  rel="stylesheet">
-	<link rel="stylesheet" href="/css/normalize.css">
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/responsive.css">
+	<link rel="stylesheet" href="<jstl:url value="/css/normalize.css"/>">
+	<link rel="stylesheet" href="<jstl:url value="/css/style.css"/>">
+	<link rel="stylesheet" href="<jstl:url value="/css/responsive.css"/>">
+	<link rel="stylesheet" href="<jstl:url value="/css/myDefin/uploadBooks.css"/>">
+	<link rel="stylesheet" href="<jstl:url value="/css/myDefin/detail.css"/> ">
+	<script src='<jstl:url value="/js/jquery.min.js"/>'></script>
+	<script src='<jstl:url value="/js/bootstrap.min.js"/>'></script>
+	<script src='<jstl:url value="/js/myFunction.js"/>'></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script>
-        function verify(){
-            var passwd = $('#user-password-label');
-            var passwdConfirm = $('#userPasswd');
-            if(passwd.val === passwdConfirm.val){
-                $('#register').submit();
-            }
-            else alert("your passwd is not confirm");
-        }
-	</script>
 </head>

@@ -37,4 +37,14 @@
   </div>
 
 </div>
+<script>
+    function verify(){
+        var passwd = $('#user-password-label');
+        var passwdConfirm = $('#userPasswd');
+        if(passwd.val === passwdConfirm.val){
+            $('#register').submit();
+        }
+        else alert("your passwd is not confirm");
+    }
+</script>
 </body>

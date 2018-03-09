@@ -1,44 +1,29 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%-- jsp 存在一个解释的过程，只有meta设置utf8是不够的 不加上这句的话会出现乱码--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>MyBookStore</title>
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link href="https://fonts.googleapis.com/css?family=Changa+One" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
-          rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/myDefin/uploadBooks.css">
-    <!-- <link rel="stylesheet" href="../css/responsive.css"> -->
-    <link rel="stylesheet" href="/css/responsive.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .inputForm {
-            /*margin-left: 5px;*/
-            float: left;
-            width: 360px;
-        }
-
-        .inputForm label {
-            margin-top: 10px;
-        }
-
-        .buttons {
-            margin-top: 50px;
-            margin-left: 300px;
-            clear: both;
-        }
-
-        .buttons button {
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-    </style>
-</head>
 <body>
+<style>
+    .inputForm {
+        /*margin-left: 5px;*/
+        float: left;
+        width: 360px;
+    }
+
+    .inputForm label {
+        margin-top: 10px;
+    }
+
+    .buttons {
+        margin-top: 50px;
+        margin-left: 300px;
+        clear: both;
+    }
+
+    .buttons button {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+</style>
 <div id="main">
     <div class="left">
         <div class="selfMeaasge">
@@ -56,36 +41,36 @@
     </div>
 
     <div class="right">
-        <div class="number">
-            <div class="numberSpan">
-                <div class="icon icon1">
-                    <img src="/images/icons/accumulation_score.png" alt=""/>
-                </div>
-                <span class="span1">TOTAL SALES</span>
-                <p>$65.8</p>
-            </div>
-            <div class="numberSpan">
-                <div class="icon icon2">
-                    <img src="/images/icons/accumulation_score.png" alt=""/>
-                </div>
-                <span class="span2">NEW QUOTE</span>
-                <p>$65.8</p>
-            </div>
-            <div class="numberSpan">
-                <div class="icon icon3">
-                    <img src="/images/icons/accumulation_score.png" alt=""/>
-                </div>
-                <span class="span3">ORDERS</span>
-                <p>$65.8</p>
-            </div>
-            <div class="numberSpan">
-                <div class="icon icon4">
-                    <img src="/images/icons/accumulation_score.png" alt=""/>
-                </div>
-                <span class="span4">PROUUCTS</span>
-                <p>$65.8</p>
-            </div>
-        </div>
+        <%--<div class="number">--%>
+            <%--<div class="numberSpan">--%>
+                <%--<div class="icon icon1">--%>
+                    <%--<img src="/images/icons/accumulation_score.png" alt=""/>--%>
+                <%--</div>--%>
+                <%--<span class="span1">TOTAL SALES</span>--%>
+                <%--<p>$65.8</p>--%>
+            <%--</div>--%>
+            <%--<div class="numberSpan">--%>
+                <%--<div class="icon icon2">--%>
+                    <%--<img src="/images/icons/accumulation_score.png" alt=""/>--%>
+                <%--</div>--%>
+                <%--<span class="span2">NEW QUOTE</span>--%>
+                <%--<p>$65.8</p>--%>
+            <%--</div>--%>
+            <%--<div class="numberSpan">--%>
+                <%--<div class="icon icon3">--%>
+                    <%--<img src="/images/icons/accumulation_score.png" alt=""/>--%>
+                <%--</div>--%>
+                <%--<span class="span3">ORDERS</span>--%>
+                <%--<p>$65.8</p>--%>
+            <%--</div>--%>
+            <%--<div class="numberSpan">--%>
+                <%--<div class="icon icon4">--%>
+                    <%--<img src="/images/icons/accumulation_score.png" alt=""/>--%>
+                <%--</div>--%>
+                <%--<span class="span4">PROUUCTS</span>--%>
+                <%--<p>$65.8</p>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <form action="/userAction/publishBook" method="post" enctype="multipart/form-data">
             <div style="overflow: auto;margin-top: 20px;width: 10000px">
                 <div class="inputForm">
@@ -111,15 +96,16 @@
                     <%-- todo:只是临时的，需要用js实现 并且需要做文件的判断，不是图片文件不允许上传--%>
                     <label>
                         文件上传
-                        <input type="radio" name="imgType" value="file">
+                        <input type="radio" name="imgType" value="file" checked="checked"
+                               onselect="displayFile(true)">
                     </label>
                     <label>
                         图片地址
-                        <input type="radio" name="imgType" value="url">
+                        <input type="radio" name="imgType" value="url" onselect="displayFile(false)">
                     </label>
                     <div style="display: block">
-                        <input name="bookCover" type="file" value="上传图片">
-                        <input type="text" name="url" placeholder="请输入url">
+                        <input id="file" name="bookCover" type="file" value="上传图片">
+                        <input id="url" hidden="hidden" type="text" name="url" placeholder="请输入url">
                     </div>
                 </div>
             </div>

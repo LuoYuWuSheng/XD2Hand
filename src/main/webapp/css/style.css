@@ -308,7 +308,8 @@ PAGE: CENTER
 
 #gallery li img {
     max-width: 100%;
-    height: auto;
+    height: 232px;
+    width: 188px;
     margin: 0 0 10px;
 }
 

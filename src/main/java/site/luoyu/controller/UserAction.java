@@ -81,10 +81,7 @@ public class UserAction {
         List<Books> pages = booksService.getBooksByPage();
         //jstl只支持基本类型的遍历，不支持iterator
         List<Books> booksList = new ArrayList<>();
-        Iterator<Books> iterator = pages.iterator();
-        while (iterator.hasNext()){
-            booksList.add(iterator.next());
-        }
+        booksList.addAll(pages);
         model.addAttribute("pages",booksList);
         log.info("获得图书列表 针对用户的兴趣进行排序显示");
         return "TileMainPage";
@@ -96,4 +93,15 @@ public class UserAction {
      */
     @RequestMapping("/searchBooks")
     public void searchBooks(){}
+
+
+    /**
+     * 查看购物车，购物车在Session中
+     * @param session
+     * @return
+     */
+    @RequestMapping("/disShopCar")
+    public String disShopCar(HttpSession session,Model model){
+        return "TileShopCar";
+    }
 }

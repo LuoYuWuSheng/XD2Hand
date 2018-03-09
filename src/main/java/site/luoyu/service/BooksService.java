@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.luoyu.dao.entity.Books;
 import site.luoyu.dao.mapper.BooksMapper;
+import site.luoyu.model.Book;
 import site.luoyu.model.UserModel;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,6 @@ public class BooksService {
     //日志
     private static final Logger log = LogManager.getLogger(BooksService.class);
 
-
     @Autowired
     BooksMapper booksMapper;
 
@@ -38,7 +38,7 @@ public class BooksService {
     	return page;
     }
 
-   
+
     public void recommendBooks(){}
 
     /**
@@ -95,5 +95,24 @@ public class BooksService {
         	
           }
          return imageURI;
+    }
+
+    /**
+     * 获取一本书详情
+     * @param id 书本id
+     * @return 返回该书本
+     */
+    public Books getBookById(int id){
+        return booksMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * todo 没判断是否更新成功
+     * @param book 待更新的数据
+     * @return 是否成功
+     */
+    public boolean updateBook(Books book){
+        booksMapper.updateByPrimaryKey(book);
+        return true;
     }
 }

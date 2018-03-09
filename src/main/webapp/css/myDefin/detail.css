@@ -3,19 +3,13 @@
   margin-left: 5%;
 }
 
-.center .search {
-  width:100%;
-  height:80px;
-  border-bottom: 2px solid #ccc;
-  /*background:#069;*/
-}
-.center .book_detail {
+#one_book {
   margin-top: 30px;
   width:100%;
   height:376px;
   /*border: 1px solid #000;*/
 }
-.center img{
+#detailImage{
   float:left;
   width:28%;
   height:100%;
@@ -87,7 +81,7 @@
   display:none;
   border:1px #bbb solid;
   padding:20px;
-  }
+}
 #tab_con div.fdiv {display:block;border-radius: 0 20px 20px 20px;}
 #tab .fli{
   border:1px solid #bbb;
@@ -113,16 +107,16 @@
 .detail_ul{
   width:100%;
 }
- .detail_ul li{
+.detail_ul li{
   float:left;
   width:100%;
   height:30px;
 }
-.detail_ul  .left{
+.detail_ul  .dleft{
   float:left;
   margin-left:0px;
 }
-.detail_ul  .right{
+.detail_ul  .dright{
   float:left;
   margin-left:80px;
 }
