@@ -51,10 +51,11 @@
             <c:if test="${user != null}" >
                 <div class="buttons" style="margin-top: 200px">
                     <c:if test="${user.getType()}">
-                        <button onclick="location='/Books/edit/8'" style="margin-left: 10px;" class="btn">编辑</button>
+                        <button onclick="location='/Books/edit/${book.bookId}'" style="margin-left: 10px;" class="btn">编辑</button>
                     </c:if>
                     <c:if test="${!user.getType()}">
-                        <button type="submit" class="btn">加入购物车</button>
+                        <input id="buyNum" type="text" value="1">
+                        <button type="button" onclick="addToCar()" class="btn">加入购物车</button>
                     </c:if>
                 </div>
             </c:if>
@@ -90,4 +91,9 @@
   </footer>
   <script src="/js/myFunction.js" type="text/javascript"></script>
 </body>
+<script>
+    function addToCar() {
+        console.log($('#buyNum').value);
+    }
+</script>
 </html>

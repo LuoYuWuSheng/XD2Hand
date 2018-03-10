@@ -1,8 +1,14 @@
-package site.luoyu.dao.entity;
+package site.luoyu.model;
+
+import site.luoyu.dao.entity.Orders;
 
 import java.util.Date;
 
-public class Orders {
+/**
+ * Computer user luoyu
+ * Created by 张洋 on 2018/3/10.
+ */
+public class OrderModel {
     private String orderid;
 
     private Integer sellerId;
@@ -20,6 +26,18 @@ public class Orders {
     private Date orderdate;
 
     private String bookPicture;
+
+    public OrderModel(Orders orders) {
+        this.orderid = orders.getOrderid();
+        this.sellerId = orders.getSellerId();
+        this.buyerId = orders.getBuyerId();
+        this.bookId = orders.getBookId();
+        this.bookTitle = orders.getBookTitle();
+        this.bookPrice = orders.getBookPrice();
+        this.bookNum = orders.getBookNum();
+        this.orderdate = orders.getOrderdate();
+        this.bookPicture = orders.getBookPicture();
+    }
 
     public String getOrderid() {
         return orderid;

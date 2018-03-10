@@ -63,12 +63,23 @@
                                 <a href="/userAction/MainPage/${book.title}"></a>
                                     ${book.title}
                             </h4>
-                            <%--<p>--%>
-                                <%--<em>简介: ${book.subtitle}</em>--%>
-                            <%--</p>--%>
-                            <hr/>
+                            <c:if test="${user != null}">
+                                <c:if test="${user.getType()}">
+                                    <p>
+                                        <em>已售数量: ${book.num}</em>
+                                    </p>
+                                    <c:if test="${book.num == 0}">
+                                        <button style="float: right;margin-right: 10px "
+                                                type="button" onclick="window.location.href='/Books/delete/${book.bookId}'"
+                                                class="btn">删除</button>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="${user.getType()}">
+                                    <hr/>
+                                </c:if>
+                            </c:if>
                             <p style="color:red;">
-                                价格: &yen;${book.price}
+                                <div>价格: &yen;${book.price}</div>
                             </p>
                         </a>
                     </li>

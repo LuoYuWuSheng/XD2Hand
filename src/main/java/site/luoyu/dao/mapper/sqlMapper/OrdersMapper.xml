@@ -6,12 +6,19 @@
     <result column="Seller_id" jdbcType="INTEGER" property="sellerId" />
     <result column="Buyer_id" jdbcType="INTEGER" property="buyerId" />
     <result column="Book_ID" jdbcType="INTEGER" property="bookId" />
+    <result column="Book_Title" jdbcType="VARCHAR" property="bookTitle" />
+    <result column="Book_Price" jdbcType="REAL" property="bookPrice" />
     <result column="Book_Num" jdbcType="INTEGER" property="bookNum" />
     <result column="orderDate" jdbcType="TIMESTAMP" property="orderdate" />
+    <result column="Book_Picture" jdbcType="VARCHAR" property="bookPicture" />
   </resultMap>
   <sql id="Base_Column_List">
-    OrderID, Seller_id, Buyer_id, Book_ID, Book_Num, orderDate
+    OrderID, Seller_id, Buyer_id, Book_ID, Book_Title, Book_Price, Book_Num, orderDate, 
+    Book_Picture
   </sql>
+  <select id="getAll" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM  Orders
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -24,10 +31,12 @@
   </delete>
   <insert id="insert" parameterType="site.luoyu.dao.entity.Orders">
     insert into Orders (OrderID, Seller_id, Buyer_id, 
-      Book_ID, Book_Num, orderDate
+      Book_ID, Book_Title, Book_Price, 
+      Book_Num, orderDate, Book_Picture
       )
     values (#{orderid,jdbcType=VARCHAR}, #{sellerId,jdbcType=INTEGER}, #{buyerId,jdbcType=INTEGER}, 
-      #{bookId,jdbcType=INTEGER}, #{bookNum,jdbcType=INTEGER}, #{orderdate,jdbcType=TIMESTAMP}
+      #{bookId,jdbcType=INTEGER}, #{bookTitle,jdbcType=VARCHAR}, #{bookPrice,jdbcType=REAL}, 
+      #{bookNum,jdbcType=INTEGER}, #{orderdate,jdbcType=TIMESTAMP}, #{bookPicture,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="site.luoyu.dao.entity.Orders">
@@ -45,11 +54,20 @@
       <if test="bookId != null">
         Book_ID,
       </if>
+      <if test="bookTitle != null">
+        Book_Title,
+      </if>
+      <if test="bookPrice != null">
+        Book_Price,
+      </if>
       <if test="bookNum != null">
         Book_Num,
       </if>
       <if test="orderdate != null">
         orderDate,
+      </if>
+      <if test="bookPicture != null">
+        Book_Picture,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -65,11 +83,20 @@
       <if test="bookId != null">
         #{bookId,jdbcType=INTEGER},
       </if>
+      <if test="bookTitle != null">
+        #{bookTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null">
+        #{bookPrice,jdbcType=REAL},
+      </if>
       <if test="bookNum != null">
         #{bookNum,jdbcType=INTEGER},
       </if>
       <if test="orderdate != null">
         #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookPicture != null">
+        #{bookPicture,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -85,11 +112,20 @@
       <if test="bookId != null">
         Book_ID = #{bookId,jdbcType=INTEGER},
       </if>
+      <if test="bookTitle != null">
+        Book_Title = #{bookTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null">
+        Book_Price = #{bookPrice,jdbcType=REAL},
+      </if>
       <if test="bookNum != null">
         Book_Num = #{bookNum,jdbcType=INTEGER},
       </if>
       <if test="orderdate != null">
         orderDate = #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookPicture != null">
+        Book_Picture = #{bookPicture,jdbcType=VARCHAR},
       </if>
     </set>
     where OrderID = #{orderid,jdbcType=VARCHAR}
@@ -99,8 +135,11 @@
     set Seller_id = #{sellerId,jdbcType=INTEGER},
       Buyer_id = #{buyerId,jdbcType=INTEGER},
       Book_ID = #{bookId,jdbcType=INTEGER},
+      Book_Title = #{bookTitle,jdbcType=VARCHAR},
+      Book_Price = #{bookPrice,jdbcType=REAL},
       Book_Num = #{bookNum,jdbcType=INTEGER},
-      orderDate = #{orderdate,jdbcType=TIMESTAMP}
+      orderDate = #{orderdate,jdbcType=TIMESTAMP},
+      Book_Picture = #{bookPicture,jdbcType=VARCHAR}
     where OrderID = #{orderid,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -2,6 +2,8 @@ package site.luoyu.dao.mapper;
 
 import site.luoyu.dao.entity.Orders;
 
+import java.util.List;
+
 public interface OrdersMapper {
     int deleteByPrimaryKey(String orderid);
 
@@ -14,4 +16,6 @@ public interface OrdersMapper {
     int updateByPrimaryKeySelective(Orders record);
 
     int updateByPrimaryKey(Orders record);
+
+    List<Orders> getAll();
 }

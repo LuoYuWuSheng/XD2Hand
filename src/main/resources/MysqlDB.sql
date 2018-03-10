@@ -43,14 +43,17 @@ CREATE TABLE IF NOT EXISTS Books(
   FOREIGN KEY (User_id) REFERENCES User(User_id)
 );
 
--- 订单表
+-- 订单表 冗余存储，避免连接操作
 CREATE TABLE IF NOT EXISTS Orders(
   OrderID varchar(20) PRIMARY KEY,
   Seller_id int,
   Buyer_id int,
   Book_ID int not null,
+  Book_Title VARCHAR(100),
+  Book_Price FLOAT,
   Book_Num int not null,
   orderDate datetime,
+  Book_Picture VARCHAR(500),
 
   foreign key (Seller_id) references User(User_id),
   foreign key (Buyer_id) references User(User_id)

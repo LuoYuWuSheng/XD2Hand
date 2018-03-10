@@ -22,7 +22,7 @@
 	  <div style="height: 200px">
     <div class="transport"></div>
     <img class="img" src="/images/photo-1424115087662-5845efc6b366.jpg?raw=true" alt="" />
-    <form id="loginForm" action="/userManage/login" method="post">
+    <form id="loginForm" action="/userManage/login" method="post" onkeydown="if(event.keyCode==13){return true;}">
         <div class="login-form">
             <form:input path="user.name" id="user-name-label" name="userName" type="text" placeholder="用户名" /><br>
             <form:input  path="user.passwd" id="user-password-label" name="userPasswd" type="password" placeholder="密码" /><br>

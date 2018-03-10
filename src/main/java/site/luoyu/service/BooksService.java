@@ -41,7 +41,7 @@ public class BooksService {
     public void recommendBooks(){}
 
     /**
-     * 二手图书发布
+     * 图书发布
      * @param bookParameter
      *     客户端传过来的图书参数
      * @param userModel
@@ -112,6 +112,11 @@ public class BooksService {
      */
     public boolean updateBook(Books book){
         booksMapper.updateByPrimaryKey(book);
+        return true;
+    }
+
+    public boolean delete(int bookId){
+        booksMapper.deleteByPrimaryKey(bookId);
         return true;
     }
 }

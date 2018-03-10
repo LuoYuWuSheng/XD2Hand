@@ -1,19 +1,24 @@
 package site.luoyu.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.luoyu.dao.entity.Books;
 import site.luoyu.model.BookModel;
+import site.luoyu.model.OrderModel;
 import site.luoyu.model.UserModel;
 import site.luoyu.service.BooksService;
+import site.luoyu.service.OrderService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -28,10 +33,12 @@ import java.util.*;
 public class UserAction {
 
     private static final Logger log = LogManager.getLogger(UserAction.class);
-
+    private List<OrderModel> orders = new LinkedList<>();
     @Autowired
     private BooksService booksService;
 
+    @Autowired
+    OrderService orderService;
     /**
      * 返回发布图书页面
      * @param model
@@ -102,5 +109,26 @@ public class UserAction {
     @RequestMapping("/disShopCar")
     public String disShopCar(HttpSession session,Model model){
         return "TileShopCar";
+    }
+
+    @RequestMapping("/addToCar")
+    public void addToCar(@Validated OrderModel orderModel){
+        orders.add(orderModel);
+    }
+
+    @RequestMapping("/clearShopCar")
+    public String clearShopCar(){
+        orderService.clearShopCar(orders);
+        orders.clear();
+//        这个需求中没说让跳到哪
+        return "TileMainPage";
+    }
+
+    @RequestMapping("/showOrders")
+    public String showOrders(Model model){
+        List<OrderModel> orders;
+        orders = orderService.getfinical();
+        model.addAttribute("orders",orders);
+        return "TileFinical";
     }
 }

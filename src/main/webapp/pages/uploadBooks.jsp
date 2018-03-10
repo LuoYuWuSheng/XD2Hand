@@ -5,7 +5,7 @@
 <body>
 <style>
     .inputForm {
-        /*margin-left: 5px;*/
+        margin-left: 5px;
         float: left;
         width: 360px;
     }
@@ -76,6 +76,8 @@
             <div style="overflow: auto;margin-top: 20px;width: 100%">
                 <div class="inputForm">
                     <input hidden name="bookId" value="${book.bookId}"/>
+                    <input hidden name="userId" value="${book.userId}"/>
+                    <input hidden name="num" value="${book.num}"/>
                     <label>
                         标题
                         <input class="form-control" name="title" type="text"
@@ -87,18 +89,17 @@
                     </label>
                     <label>
                         摘要
-                        <textarea class="form-control" name="subtitle" placeholder="2-140个字符">
-							${book.subtitle}</textarea>
+                        <textarea class="form-control" name="subtitle" placeholder="2-140个字符">${book.subtitle}
+                        </textarea>
                     </label>
 					<label>
 						详细信息
-						<textarea class="form-control" name="detail" placeholder="2-1000个字符">
-                            ${book.detail}
+						<textarea class="form-control" name="detail" placeholder="2-1000个字符">${book.detail}
 						</textarea>
 					</label>
                 </div>
                 <div class="categories inputForm">
-                    <img style="max-height: 200px" src="/images/books_images/9780081006603.jpg" alt="">
+                    <img style="max-height: 200px" src="${book.pictures}" alt="">
                     <%-- todo:只是临时的，需要用js实现 并且需要做文件的判断，不是图片文件不允许上传--%>
                     <label>
                         文件上传
