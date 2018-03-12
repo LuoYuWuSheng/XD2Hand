@@ -5,7 +5,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>XD2HandBookStore</title>
+  <title>XDBookStore</title>
   <!--    <link rel="stylesheet" href="css/normalize.css">-->
   <link href="https://fonts.googleapis.com/css?family=Changa+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
@@ -18,7 +18,7 @@
 <body>
 <div class="login">
   <div class="login-header">
-    <h1><em>Welcome to  </em>XD2HandBookStore</h1>
+    <h1><em>Welcome to  </em>XDBookStore</h1>
   </div>
   <div>
     <img class="img" src="/images/photo-1424115087662-5845efc6b366.jpg?raw=true" alt="" />

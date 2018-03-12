@@ -38,7 +38,7 @@
             <li><a href="#">发布</a></li>
             <li><a href="#">Calandar</a></li>
         </ul>
-        <p class="footMessage" style="text-align: center">&copy; Copyright 2018 XD2BookStore by ZY </p>
+        <p class="footMessage" style="text-align: center">&copy; Copyright 2018 XDBookStore by ZY </p>
     </div>
 
     <div class="right">
@@ -72,7 +72,8 @@
                 <%--<p>$65.8</p>--%>
             <%--</div>--%>
         <%--</div>--%>
-        <form style="width: 100%" method="post" enctype="multipart/form-data">
+        <form id="bookForm" style="width: 90%" method="post" enctype="multipart/form-data"
+            onsubmit="return checkAndSubmit('/Books/saveEdit');">
             <div style="overflow: auto;margin-top: 20px;width: 100%">
                 <div class="inputForm">
                     <input hidden name="bookId" value="${book.bookId}"/>
@@ -80,45 +81,49 @@
                     <input hidden name="num" value="${book.num}"/>
                     <label>
                         标题
-                        <input class="form-control" name="title" type="text"
+                        <input id="title" class="form-control" name="title" type="text"
 							   placeholder="2-80个字符" value="${book.title}"/>
                     </label>
                     <label>
                         价格
-                        <input type="text" class="form-control" name="price" value="${book.price}">
+                        <input id="price" type="text" class="form-control" name="price" value="${book.price}">
                     </label>
                     <label>
                         摘要
-                        <textarea class="form-control" name="subtitle" placeholder="2-140个字符">${book.subtitle}
-                        </textarea>
+                        <textarea id="subtitle" class="form-control" name="subtitle" placeholder="2-140个字符">${book.subtitle}</textarea>
                     </label>
 					<label>
 						详细信息
-						<textarea class="form-control" name="detail" placeholder="2-1000个字符">${book.detail}
-						</textarea>
+						<textarea id="detail" class="form-control" name="detail" placeholder="2-1000个字符">${book.detail}</textarea>
 					</label>
                 </div>
                 <div class="categories inputForm">
-                    <img style="max-height: 200px" src="${book.pictures}" alt="">
+                    <img style="max-height: 200px;width: 188px;height: 263px" src="${book.pictures}" alt="">
                     <%-- todo:只是临时的，需要用js实现 并且需要做文件的判断，不是图片文件不允许上传--%>
-                    <label>
-                        文件上传
-                        <input type="radio" name="imgType" value="file" checked="checked"
-                               onselect="displayFile(true)">
-                    </label>
-                    <label>
-                        图片地址
-                        <input type="radio" name="imgType" value="${book.pictures}" onselect="displayFile(false)">
-                    </label>
-                    <div style="display: block">
+                    <select id="imgType" name="imgType" onchange="displayFile()">
+                        <option value="file">文件上传</option>
+                        <option value="url">图片地址</option>
+                    </select>
+                    <%--<label>--%>
+                        <%----%>
+                        <%--<input type="radio" name="imgType" value="file" checked="checked"--%>
+                               <%--onselect="displayFile(true)">--%>
+                    <%--</label>--%>
+                    <%--<label>--%>
+                        <%----%>
+                        <%--<input id="imgType" type="radio" name="imgType" value="url"--%>
+                               <%--onselect="displayFile(false)">--%>
+                    <%--</label>--%>
+                    <div>
                         <input id="file" name="bookCover" type="file" value="上传图片">
-                        <input id="url" hidden="hidden" type="text" name="url" placeholder="请输入url">
+                        <input id="url" hidden="hidden" type="text"
+                               value="${book.pictures}" name="url" placeholder="请输入url">
                     </div>
                 </div>
             </div>
             <div class="buttons">
                 <c:if test="${book != null}">
-                    <button type="submit" onclick="this.form.action='/Books/saveEdit';"
+                    <button type="submit" onclick="this.form.action='/Books/saveEdit'"
                             class="btn">保存</button>
                 </c:if>
                 <c:if test="${book == null}">

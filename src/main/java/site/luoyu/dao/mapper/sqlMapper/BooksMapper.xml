@@ -15,6 +15,13 @@
   <sql id="Base_Column_List">
     Book_id, User_id, pictures, publish_date, price, title, subtitle, detail, num
   </sql>
+  <select id="rate" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM Books ORDER BY num DESC LIMIT 3;
+  </select>
+  <select id="searchLike" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM Books
+    WHERE title LIKE concat(concat('%',#{name}),'%')
+  </select>
   <select id="getBooks" resultMap="BaseResultMap" >
     SELECT <include refid="Base_Column_List"/> FROM Books
   </select>

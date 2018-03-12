@@ -120,3 +120,27 @@
   float:left;
   margin-left:80px;
 }
+
+.had {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-width: 22px;
+  border-color: #7ce0c3 transparent transparent #7ce0c3;
+  border-top-left-radius: 2px;
+}
+.had b{
+  position: absolute;
+  top: -12px;
+  left: -25px;
+  width: 40px;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 14px;
+  font-size: 12px;
+  transform: rotate(-45deg);
+  color: #eee;
+}

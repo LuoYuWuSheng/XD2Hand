@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Books(
 
 -- 订单表 冗余存储，避免连接操作
 CREATE TABLE IF NOT EXISTS Orders(
-  OrderID varchar(20) PRIMARY KEY,
+  OrderID INT PRIMARY KEY AUTO_INCREMENT,
   Seller_id int,
   Buyer_id int,
   Book_ID int not null,
@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS Orders(
 );
 
 -- 插入一些测试用数据
-INSERT INTO User VALUES ('','buyer','0','reyub');
-INSERT INTO User VALUES ('','seller','1','relles');
+INSERT INTO User VALUES ('','buyer','0','37254660e226ea65ce6f1efd54233424');
+INSERT INTO User VALUES ('','seller','1','981c57a5cfb0f868e064904b8745766f');
 INSERT INTO Books VALUES ('','1','https://img3.doubanio.com/mpic/s1638975.jpg',
-  '2018-1-1','99.00','C++ primer','一起来编程','入门必学，编程必会',100
+  '2018-1-1','99.00','C++ primer','一起来编程','入门必学，编程必会',0
 );

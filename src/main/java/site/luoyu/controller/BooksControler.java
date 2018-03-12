@@ -51,19 +51,9 @@ public class BooksControler {
     public String saveEdit(@Validated Books book,MultipartHttpServletRequest multipartHttpServletRequest,
     HttpSession session) throws IOException {
         logger.info("用户编辑信息");
-        book.setPublishDate(new Date(System.currentTimeMillis()));
-        //在数据库中存放所上传图片的路径信息
-        List<String> path = null;
         UserModel userModel = (UserModel) session.getAttribute("user");
         if(userModel == null)return "redirect:/userManage/loginPage";
-        else {
-            //上传图片封面，并将路径信息保存到数据库
-            path = booksService.uploadCover(multipartHttpServletRequest, userModel,
-                    multipartHttpServletRequest.getFileMap()
-            );
-        }
-        book.setPictures(path.get(0));
-        booksService.updateBook(book);
+        booksService.updateBook(book,multipartHttpServletRequest,userModel);
         return "redirect:/Books/detail/"+book.getBookId();
     }
 
@@ -77,6 +67,5 @@ public class BooksControler {
         booksService.delete(bookId);
         return "redirect:/userAction/MainPage";
     }
-
 
 }

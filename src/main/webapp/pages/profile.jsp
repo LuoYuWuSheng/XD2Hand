@@ -26,7 +26,7 @@
 
 <header>
     <a href="/userAction/MainPage" id="logo">
-        <h1> XD2HandBookStore</h1>
+        <h1> XDBookStore</h1>
     </a>
     <div class="login">
         <ul class="login-option">
@@ -128,7 +128,7 @@
 </div>
 
 <footer>
-    <p>&copy; Copyright 2018 XD2BookStore by ZY.</p>
+    <p>&copy; Copyright 2018 XDBookStore by ZY.</p>
 </footer>
 
 </body>

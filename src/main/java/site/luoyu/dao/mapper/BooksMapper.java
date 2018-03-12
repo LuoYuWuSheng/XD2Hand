@@ -18,4 +18,8 @@ public interface BooksMapper {
     int updateByPrimaryKey(Books record);
 
     List<Books> getBooks();
+
+    List<Books> searchLike(String name);
+
+    List<Books> rate();
 }

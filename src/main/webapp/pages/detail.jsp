@@ -2,6 +2,27 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <body>
+<c:set var="user" scope="session" value="${sessionScope.user}"/>
+<script type="text/javascript">
+    function addToCar() {
+        var num = $('#buyNum').val();
+        var id = ${book.bookId};
+        $.ajax({
+            type:"post",
+            url:"/userAction/addToCar",
+            data:{
+                num:num,
+                id:id
+            },
+            success:function () {
+                alert("成功添加到购物车")
+            },
+            error:function () {
+                alert("添加失败")
+            }
+        });
+    }
+</script>
 <div id="wrapper">
     <aside>
         <h4 style="color: #50e3c2; text-align: left; margin: 20px 0 20px 0;">TOP RATED</h4>
@@ -55,7 +76,9 @@
                     </c:if>
                     <c:if test="${!user.getType()}">
                         <input id="buyNum" type="text" value="1">
-                        <button type="button" onclick="addToCar()" class="btn">加入购物车</button>
+                        <input id="id" hidden="hidden" value="${book.bookId}"/>
+                        <button style="margin-left: 5px;margin-right: 20px"
+                                type="button" onclick="addToCar()" class="btn">加入购物车</button>
                     </c:if>
                 </div>
             </c:if>
@@ -87,13 +110,8 @@
  </div>
 
   <footer>
-    <p>&copy; Copyright 2018 XD2HandBookStore by ZY.</p>
+    <p>&copy; Copyright 2018 XDBookStore by ZY.</p>
   </footer>
   <script src="/js/myFunction.js" type="text/javascript"></script>
 </body>
-<script>
-    function addToCar() {
-        console.log($('#buyNum').value);
-    }
-</script>
 </html>

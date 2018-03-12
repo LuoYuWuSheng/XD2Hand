@@ -33,7 +33,6 @@ public class ForLearn {
         return "test/testForm";
     }
 
-    // TODO: 2017/2/21 Valid 还没有试验完
     @RequestMapping(value = "testForm", produces = "text/plain")
     @ResponseBody
     public String testForm(@Valid UserModel userModel, Errors errors, HttpSession session, HttpServletResponse response) {

@@ -1,6 +1,5 @@
 package site.luoyu.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
@@ -10,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.luoyu.dao.entity.Books;
@@ -59,20 +59,11 @@ public class UserAction {
     @RequestMapping(value = "/publishBook",method = RequestMethod.POST)
     public String publishBookSale(MultipartHttpServletRequest multipartHttpServletRequest, HttpSession session) throws IOException {
 
-        Map<String, MultipartFile> fileMap = multipartHttpServletRequest.getFileMap();
         Map BookParameter = multipartHttpServletRequest.getParameterMap();
-
-        //在数据库中存放所上传图片的路径信息
-        List<String> path = null;
-
         log.info("用户 发布图书销售信息 ");
         UserModel userModel = (UserModel) session.getAttribute("user");
         if(userModel == null)return "redirect:/userManage/loginPage";
-        else {
-            //上传图片封面，并将路径信息保存到数据库
-            path = booksService.uploadCover(multipartHttpServletRequest, userModel, fileMap);
-        }
-        booksService.publishBook(BookParameter,path, userModel);
+        booksService.publishBook(BookParameter,multipartHttpServletRequest, userModel);
         return "redirect:/userAction/MainPage";
     }
 
@@ -89,6 +80,7 @@ public class UserAction {
         List<Books> booksList = new ArrayList<>();
         booksList.addAll(pages);
         model.addAttribute("pages",booksList);
+        model.addAttribute("rate",booksService.topRate());
         log.info("获得图书列表 针对用户的兴趣进行排序显示");
         return "TileMainPage";
     }
@@ -108,12 +100,32 @@ public class UserAction {
      */
     @RequestMapping("/disShopCar")
     public String disShopCar(HttpSession session,Model model){
+        model.addAttribute("orders",orders);
+        float money = 0;
+        for (OrderModel order : orders)
+            money+=(order.getBookPrice()*order.getBookNum());
+        model.addAttribute("money",money);
         return "TileShopCar";
     }
 
     @RequestMapping("/addToCar")
-    public void addToCar(@Validated OrderModel orderModel){
+    @ResponseBody
+    public String addToCar(HttpServletRequest request){
+        log.info("添加到购物车");
+        int bookId = Integer.parseInt(request.getParameter("id"));
+        int num = Integer.parseInt(request.getParameter("num"));
+        Books book = booksService.getBookById(bookId);
+        OrderModel orderModel = new OrderModel();
+        orderModel.setBookId(bookId);
+        orderModel.setBookNum(num);
+        orderModel.setBookPicture(book.getPictures());
+        orderModel.setBookPrice(book.getPrice());
+        orderModel.setBookTitle(book.getTitle());
+        orderModel.setBuyerId(1);
+        orderModel.setOrderdate(new Date(System.currentTimeMillis()));
+        orderModel.setSellerId(2);
         orders.add(orderModel);
+        return "success";
     }
 
     @RequestMapping("/clearShopCar")
@@ -121,14 +133,27 @@ public class UserAction {
         orderService.clearShopCar(orders);
         orders.clear();
 //        这个需求中没说让跳到哪
-        return "TileMainPage";
+        return "redirect:/userAction/MainPage";
     }
 
     @RequestMapping("/showOrders")
     public String showOrders(Model model){
         List<OrderModel> orders;
         orders = orderService.getfinical();
+        float money = 0;
+        for (OrderModel order : orders)
+            money+=(order.getBookPrice()*order.getBookNum());
         model.addAttribute("orders",orders);
+        model.addAttribute("money",money);
         return "TileFinical";
+    }
+
+    @RequestMapping("/search")
+    public String search(Model model,HttpServletRequest request){
+        String name = request.getParameter("search");
+        List<Books> booksList = booksService.search(name);
+        model.addAttribute("pages",booksList);
+        model.addAttribute("rate",booksService.topRate());
+        return "TileMainPage";
     }
 }

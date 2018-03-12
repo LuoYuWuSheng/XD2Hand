@@ -1013,17 +1013,6 @@ a.badge:hover {
     background-color: #1a1a1a;
 }
 
-.btn .label,
-.btn .badge {
-    position: relative;
-    top: -1px;
-}
-
-.btn-mini .label,
-.btn-mini .badge {
-    top: 0;
-}
-
 table {
     max-width: 100%;
     background-color: transparent;
@@ -1282,6 +1271,17 @@ table th[class*="span"],
 
 .table-hover tbody tr.info:hover td {
     background-color: #c4e3f3;
+}
+
+.btn .label,
+.btn .badge {
+    position: relative;
+    top: -1px;
+}
+
+.btn-mini .label,
+.btn-mini .badge {
+    top: 0;
 }
 
 form {

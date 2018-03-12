@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.luoyu.dao.entity.Books;
 import site.luoyu.dao.mapper.BooksMapper;
 import site.luoyu.model.UserModel;
+
+import java.awt.print.Book;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -47,7 +49,19 @@ public class BooksService {
      * @param userModel
      *     发布图书人的信息
      */
-    public void publishBook(Map bookParameter, List<String> path, UserModel userModel) {
+    public void publishBook(Map bookParameter,MultipartHttpServletRequest multipartHttpServletRequest,
+                            UserModel userModel) throws IOException {
+        String imgType = ((String[]) bookParameter.get("imgType"))[0];
+        List<String> path;
+        if(imgType.equals("file")){
+            Map<String, MultipartFile> fileMap = multipartHttpServletRequest.getFileMap();
+            //上传图片封面，并将路径信息保存到数据库
+            path = uploadCover(multipartHttpServletRequest, userModel, fileMap);
+        }else {
+            //url不入库。。
+            path=new ArrayList<>(1);
+            path.add(((String[]) bookParameter.get("url"))[0]);
+        }
         Books aBook = new Books();
         aBook.setUserId(userModel.getStuId());
         aBook.setPublishDate(new Date(System.currentTimeMillis()));
@@ -57,6 +71,8 @@ public class BooksService {
         aBook.setPrice(Float.parseFloat(((String[]) bookParameter.get("price"))[0]));
         aBook.setSubtitle(((String[]) bookParameter.get("subtitle"))[0]);
         aBook.setDetail(((String[]) bookParameter.get("detail"))[0]);
+        aBook.setNum(0
+        );
         //存储图片
         aBook.setPictures(path.get(0));
         log.info("图书发布持久化 书名: " + aBook.getTitle());
@@ -67,7 +83,7 @@ public class BooksService {
      *上传图书封面图片 
      */
     public List<String> uploadCover(MultipartHttpServletRequest request, UserModel userModel, Map<String, MultipartFile> fileMap) throws IOException {
-        List<String> imageURI = new ArrayList<>();
+          List<String> imageURI = new ArrayList<>();
           //todo windows linxu 路径表示不同，这里不同系统会与问题
     	  String realPath = request.getSession().getServletContext().getRealPath("/")+"uploadImages"+"/";
           File file = new File(realPath);
@@ -110,7 +126,25 @@ public class BooksService {
      * @param book 待更新的数据
      * @return 是否成功
      */
-    public boolean updateBook(Books book){
+    public boolean updateBook(Books book,MultipartHttpServletRequest multipartHttpServletRequest,
+                               UserModel userModel ) throws IOException {
+        Map bookParameter = multipartHttpServletRequest.getParameterMap();
+        book.setPublishDate(new java.util.Date(System.currentTimeMillis()));
+
+        String imgType = ((String[]) bookParameter.get("imgType"))[0];
+        List<String> path;
+        if(imgType.equals("file")){
+            Map<String, MultipartFile> fileMap = multipartHttpServletRequest.getFileMap();
+            //上传图片封面，并将路径信息保存到数据库
+            path = uploadCover(multipartHttpServletRequest, userModel, fileMap);
+        }else {
+            //url不入库。。
+            path=new ArrayList<>(1);
+            path.add(((String[]) bookParameter.get("url"))[0]);
+        }
+        //存储图片
+        book.setPictures(path.get(0));
+        log.info("图书编辑持久化 书名: " + book.getTitle());
         booksMapper.updateByPrimaryKey(book);
         return true;
     }
@@ -118,5 +152,22 @@ public class BooksService {
     public boolean delete(int bookId){
         booksMapper.deleteByPrimaryKey(bookId);
         return true;
+    }
+
+    /**
+     * 获取畅销书
+     * @return
+     */
+    public List<Books> topRate(){
+        return booksMapper.rate();
+    }
+
+    /**
+     * 搜索，没有分词，只是简单的like
+     * @param name
+     * @return
+     */
+    public List<Books> search(String name){
+        return booksMapper.searchLike(name);
     }
 }

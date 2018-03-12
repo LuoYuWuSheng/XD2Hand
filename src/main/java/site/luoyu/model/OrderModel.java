@@ -2,6 +2,7 @@ package site.luoyu.model;
 
 import site.luoyu.dao.entity.Orders;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -26,6 +27,9 @@ public class OrderModel {
     private Date orderdate;
 
     private String bookPicture;
+
+    public OrderModel() {
+    }
 
     public OrderModel(Orders orders) {
         this.orderid = orders.getOrderid();
@@ -109,5 +113,9 @@ public class OrderModel {
 
     public void setBookPicture(String bookPicture) {
         this.bookPicture = bookPicture == null ? null : bookPicture.trim();
+    }
+
+    public String formatDate(){
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(orderdate);
     }
 }

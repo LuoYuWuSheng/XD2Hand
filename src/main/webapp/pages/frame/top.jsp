@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--todo 最好能用模板，把头和尾提出来--%>
 <a href="/userAction/MainPage" id="logo">
-	<h1> XD2HandBookStore</h1>
+	<h1> XDBookStore</h1>
 </a>
 <c:set var="user" scope="session" value="${sessionScope.user}"/>
 <div class="login">
@@ -19,7 +19,7 @@
 			<li><img style="max-width: 20px;max-height: 20px" src="/images/icons/head.png"></li>
 			<li><a href="/userManage/logout" onfocus="">${user.getName()}</a></li>
 			<c:if test="${!user.getType()}">
-				<li><a href="#">购物车</a></li>
+				<li><a href="/userAction/disShopCar">购物车</a></li>
 			</c:if>
 			<li><a href="/userManage/logout">退出</a></li>
 		</ul>
@@ -44,7 +44,7 @@
 				<li><a href="/userAction/publishBookPage">发布</a></li>
 			</c:if>
 			<c:if test="${!user.getType()}">
-				<li><a href="/userAction/publishBookPage">财务</a></li>
+				<li><a href="/userAction/showOrders">财务</a></li>
 			</c:if>
 		</c:if>
 	</ul>

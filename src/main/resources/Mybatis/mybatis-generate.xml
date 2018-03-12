@@ -42,12 +42,12 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         <!-- !!!! Table Configurations !!!! -->
-        <table schema="BookStore" tableName="User" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false"/>
-        <table schema="BookStore" tableName="Books" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false"/>
+        <!--<table schema="BookStore" tableName="User" enableCountByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false"/>-->
+        <!--<table schema="BookStore" tableName="Books" enableCountByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false"/>-->
         <table schema="BookStore" tableName="Orders" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
