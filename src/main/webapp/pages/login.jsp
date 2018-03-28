@@ -19,23 +19,23 @@
 
 <body>
   <div class="login">
-<div class="login-header">
-  <h1><em>Welcome to  </em>MyBookStore</h1>
-</div>
-	  <div style="height: 200px">
-    <div class="transport"></div>
-    <img class="img" src="/images/photo-1424115087662-5845efc6b366.jpg?raw=true" alt="" />
+    <div class="login-header">
+      <h1><em>Welcome to  </em>MyBookStore</h1>
+    </div>
+    <div class="transport">
+    </div>
           <%--onkeydown="if(event.keyCode==13){return true;}"--%>
     <form id="loginForm" action="/userManage/login" method="post"
         onsubmit="encodePasswd()">
+        <img class="img" src="/images/photo-1424115087662-5845efc6b366.jpg?raw=true" alt="" />
         <div class="login-form">
             <form:input path="user.name" id="user-name-label" name="userName" type="text" placeholder="用户名" /><br>
             <form:input  path="user.passwd" id="user-password-label" name="userPasswd" type="password" placeholder="密码" /><br>
             <input type="text" placeholder="校验码" /><br>
-			<label class="label" style="left: auto">
+			<label class="label">
                 <input type="checkbox" />
                 记住</label><br><br>
-            <input type="button" onkeydown="console.log('12');if(window.event.keyCode=='13'){$('#loginForm').submit()}"
+            <input type="button"
                    onclick="$('#loginForm').submit()" value="登陆" class="login-button" />
             <input type="button" onclick="window.location.href='#'" value="注册" class="login-button" />
             <a>${message}</a>
@@ -44,6 +44,31 @@
         </div>
     </form>
 </div>
-
-</div>
+<%--<script type="text/javascript">--%>
+    <%--document.onkeydown = function (e) {--%>
+        <%--var theEvent = window.event || e;--%>
+        <%--var code = theEvent.keyCode || theEvent.which;--%>
+        <%--if (code == 13) {--%>
+            <%--$("#but1").click();--%>
+        <%--}--%>
+    <%--}--%>
+    <%--$(document).ready(function () {--%>
+        <%--$("#but1").click(function () {--%>
+            <%--alert("我是enter事件," + "text值:" + $("#text1").val());--%>
+        <%--})--%>
+        <%--$("#but2").click(function () {--%>
+            <%--alert("我是Jquery事件" + "text值:" + $("#text1").val());--%>
+        <%--})--%>
+    <%--});--%>
+<%--</script>--%>
+<script type="text/javascript">
+    $(document).keypress(function(e) {
+        var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+        if (eCode == 13){
+            console.log("enter passed");
+            //自己写判断操作
+            $('#loginForm').submit()
+        }
+    });
+</script>
 </body>

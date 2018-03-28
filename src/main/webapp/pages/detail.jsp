@@ -21,7 +21,23 @@
                 alert("添加失败")
             }
         });
-    }
+    };
+    $(document).ready(function(){
+        //加的效果
+        $(".add").click(function(){
+            var n=$(this).prev().val();
+            var num=parseInt(n)+1;
+            if(num==0){ return;}
+            $(this).prev().val(num);
+        });
+        //减的效果
+        $(".jian").click(function(){
+            var n=$(this).next().val();
+            var num=parseInt(n)-1;
+            if(num==0){ return}
+            $(this).next().val(num);
+        });
+    })
 </script>
 <div id="wrapper">
     <aside>
@@ -75,9 +91,14 @@
                         <button onclick="location='/Books/edit/${book.bookId}'" style="margin-left: 10px;" class="btn">编辑</button>
                     </c:if>
                     <c:if test="${!user.getType()}">
-                        <input id="buyNum" type="text" value="1">
+                        <%--<input id="buyNum" type="text" value="1">--%>
+                        <div class="gw_num">
+                            <em class="jian">-</em>
+                            <input id="buyNum" type="text" value="1" class="num"/>
+                            <em class="add">+</em>
+                        </div>
                         <input id="id" hidden="hidden" value="${book.bookId}"/>
-                        <button style="margin-left: 5px;margin-right: 20px"
+                        <button style="margin-left: 5px;margin-right: 20px;width: 96px;float: right;padding: 4px 12px;"
                                 type="button" onclick="addToCar()" class="btn">加入购物车</button>
                     </c:if>
                 </div>

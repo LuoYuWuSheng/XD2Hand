@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6, a {
 }
 
 .login-header h1 {
-    margin: 100px -234px -30px 0;
+    margin: 100px 0px -30px 0;
     color: #5CE6CD;
     text-shadow: 0 2px 3px #000;
     font-family: 'Oswald', sans-serif;
@@ -50,11 +50,12 @@ h1, h2, h3, h4, h5, h6, a {
     margin: 50px auto;
     text-align: center;
     overflow: hidden;
+    height: 311px;
 }
 
 .img {
     width: 200px;
-    height: 313px;
+    height: 311px;
     max-width: 100%;
     overflow: hidden;
     float: left;
@@ -114,7 +115,7 @@ input[type="checkbox"] {
     background-color: #a9eedd;
     -webkit-filter: Opacity(60); /* for chrome,opera,safari*/
     filter: Alpha(Opacity=60);
-    opacity: 0.6;
+    /*opacity: 0.6;*/
 }
 
 /*Media Querie*/
