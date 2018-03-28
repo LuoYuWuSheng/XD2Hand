@@ -98,9 +98,9 @@
 					</label>
                 </div>
                 <div class="categories inputForm">
-                    <img style="max-height: 200px;width: 188px;height: 263px" src="${book.pictures}" alt="">
+                    <img id="imageview" style="max-height: 200px;width: 200px;height: 263px;margin: 20px 10px 10px" src="${book.pictures}" alt="">
                     <%-- todo:只是临时的，需要用js实现 并且需要做文件的判断，不是图片文件不允许上传--%>
-                    <select id="imgType" name="imgType" onchange="displayFile()">
+                    <select style="clear: both;display: block;" id="imgType" name="imgType" onchange="displayFile()">
                         <option value="file">文件上传</option>
                         <option value="url">图片地址</option>
                     </select>
@@ -116,7 +116,7 @@
                     <%--</label>--%>
                     <div>
                         <input id="file" name="bookCover" type="file" value="上传图片">
-                        <input id="url" hidden="hidden" type="text"
+                        <input id="url" hidden="hidden" type="text" onchange="changeImage(value)"
                                value="${book.pictures}" name="url" placeholder="请输入url">
                     </div>
                 </div>
@@ -135,6 +135,23 @@
         </form>
     </div>
 </div>
-
+<script type="text/javascript">
+    $(function() {
+        /*原理是把本地图片路径："D(盘符):/image/..."转为"http://..."格式路径来进行显示图片*/
+        $("#file").change(function() {
+            var $file = $(this);
+            var objUrl = $file[0].files[0];
+            //获得一个http格式的url路径:mozilla(firefox)||webkit or chrome
+            var windowURL = window.URL || window.webkitURL;
+            //createObjectURL创建一个指向该参数对象(图片)的URL
+            var dataURL;
+            dataURL = windowURL.createObjectURL(objUrl);
+            $("#imageview").attr("src",dataURL);
+        });
+    });
+    function changeImage(value){
+        $("#imageview").attr("src",value);
+    }
+</script>
 </body>
 </html>
